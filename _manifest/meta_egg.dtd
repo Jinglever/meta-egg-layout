@@ -1,0 +1,101 @@
+<!-- project: 项目
+name: 项目英文名
+desc: 项目描述
+-->
+<!ELEMENT project (database)>
+<!ATTLIST project
+    name CDATA #REQUIRED
+    desc CDATA #REQUIRED
+    go_module CDATA #REQUIRED
+    go_version CDATA #REQUIRED
+>
+<!-- database: 数据库
+name: 库名
+charset: 字符集
+collate: 排序规则
+-->
+<!ELEMENT database (table+)>
+<!ATTLIST database
+    name CDATA #REQUIRED
+    type (MySQL|TiDB) #REQUIRED
+    charset CDATA "utf8mb4"
+    collate CDATA #IMPLIED
+>
+<!-- table: 数据库表
+name: 表名
+type: 表类型
+    META: 元数据表
+    DATA: 实体表
+    RI: 倒排索引表
+charset: 字符集
+collate: 排序规则
+comment: 表描述
+-->
+<!ELEMENT table (column+, index*, unique*)>
+<!ATTLIST table
+    name CDATA #REQUIRED
+    type (META|DATA|RI) #REQUIRED
+    charset CDATA #IMPLIED
+    collate CDATA #IMPLIED
+    comment CDATA #REQUIRED
+>
+<!-- column: 表字段
+name: 字段名
+type: 字段类型
+    _ID: 默认的表主键类型 bigint(20, unsigned) primary auto_increment not null
+    _FID: 默认的外链类型 bigint(20, unsigned)
+    _SMT: META表的语义字段 CHAR(16)，可自定义长度
+    _ME_CREATE: 创建者
+    _ME_UPDATE: 更新者
+    _ME_DELETE: 删除者，必须DEFAULT NULL
+    _TIME_CREATE: 创建时间
+    _TIME_UPDATE: 更新时间
+    _TIME_DELETE: 删除时间，NULL代表未删除，必须DEFAULT NULL
+length: 字段长度/数值最大位数
+decimal: 仅对decimal类型的字段有用，表示小数点右边的位数
+unsigned: 是否无符号数值类型
+required: 是否Not Null
+primary_key: 是否主键，限一个
+index: 是否对字段加索引
+unique: 是否对字段加唯一索引
+comment: 字段描述
+insert_default: 在插入记录时该字段的默认值
+ri_key: 是否倒排索引的key
+-->
+<!ELEMENT column (foreign_key*)>
+<!ATTLIST column
+    name CDATA #REQUIRED
+    type (CHAR|VARCHAR|TEXT|TINYINT|SMALLINT|MEDIUMINT|INT|BIGINT|DECIMAL|DATE|DATETIME|TIMESTAMP|TIME|_ID|_FID|_SMT|_ME_CREATE|_ME_UPDATE|_ME_DELETE|_TIME_CREATE|_TIME_UPDATE|_TIME_DELETE) #REQUIRED
+    length CDATA #IMPLIED
+    decimal CDATA #IMPLIED
+    unsigned (true|false) "false"
+    required (true|false) "false"
+    primary_key (true|false) "false"
+    index (true|false) "false"
+    unique (true|false) "false"
+    comment CDATA #IMPLIED
+    insert_default CDATA #IMPLIED
+    ri_key (true|false) "false"
+>
+<!-- index: 联合索引，至少要有两个字段以上-->
+<!ELEMENT index (index_column, index_column+)>
+<!-- unique: 联合唯一索引，至少要有两个字段以上-->
+<!ELEMENT unique (index_column, index_column+)>
+<!-- index_column: 联合索引字段
+name: 字段名
+-->
+<!ELEMENT index_column EMPTY>
+<!ATTLIST index_column name CDATA #REQUIRED>
+<!-- foreign_key: 外链
+table: 外链的目标数据库表
+counter: 计数对应的表字段名
+ri_raw: 倒排索引key的原始字段名
+auto_remove: 当链接的目标record被删除时，是否自动删除当前record
+-->
+<!ELEMENT foreign_key EMPTY>
+<!ATTLIST foreign_key
+    table CDATA #REQUIRED
+    counter CDATA #IMPLIED
+    ri_raw CDATA #IMPLIED
+    auto_remove (true|false) "false"
+>
