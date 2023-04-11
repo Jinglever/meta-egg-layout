@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project SYSTEM "meta_egg.dtd">
 
-<project name="meta-egg-layout" desc="MetaEgg Project Template" go_module="github.com/Jinglever/meta-egg-layout" go_version="GO-VERSION">
+<project name="meta-egg-layout" desc="MetaEgg Project Template" go_module="meta-egg-layout" go_version="1.19">
     <database name="meta-egg-layout" type="MySQL" charset="utf8mb4">
         <!-- 实体表示例 -->
         <table name="user" type="DATA" comment="用户">

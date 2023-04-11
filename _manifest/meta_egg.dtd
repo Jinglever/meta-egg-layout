@@ -2,12 +2,25 @@
 name: 项目英文名
 desc: 项目描述
 -->
-<!ELEMENT project (database)>
+<!ELEMENT project (domain*, database*)>
 <!ATTLIST project
     name CDATA #REQUIRED
     desc CDATA #REQUIRED
     go_module CDATA #REQUIRED
     go_version CDATA #REQUIRED
+>
+<!-- domain: 领域 -->
+<!ELEMENT domain (usecase*)>
+<!-- usecase: 用例
+name: 用例名, 保留词：anonymous
+desc: 用例描述
+-->
+<!ELEMENT database (table+)>
+<!ATTLIST database
+    name CDATA #REQUIRED
+    type (MySQL|TiDB) #REQUIRED
+    charset CDATA "utf8mb4"
+    collate CDATA #IMPLIED
 >
 <!-- database: 数据库
 name: 库名
@@ -22,7 +35,7 @@ collate: 排序规则
     collate CDATA #IMPLIED
 >
 <!-- table: 数据库表
-name: 表名
+name: 表名, 保留词：base
 type: 表类型
     META: 元数据表
     DATA: 实体表
@@ -30,6 +43,7 @@ type: 表类型
 charset: 字符集
 collate: 排序规则
 comment: 表描述
+usecase: 所属用例名, 如果不填则表示该表属于anonymous用例
 -->
 <!ELEMENT table (column+, index*, unique*)>
 <!ATTLIST table
@@ -38,6 +52,7 @@ comment: 表描述
     charset CDATA #IMPLIED
     collate CDATA #IMPLIED
     comment CDATA #REQUIRED
+    usecase CDATA #IMPLIED
 >
 <!-- column: 表字段
 name: 字段名
@@ -75,8 +90,7 @@ ri_key: 是否倒排索引的key
     unique (true|false) "false"
     comment CDATA #IMPLIED
     insert_default CDATA #IMPLIED
-    ri_key (true|false) "false"
->
+    ri_key (true|false) "false">
 <!-- index: 联合索引，至少要有两个字段以上-->
 <!ELEMENT index (index_column, index_column+)>
 <!-- unique: 联合唯一索引，至少要有两个字段以上-->
@@ -97,5 +111,4 @@ auto_remove: 当链接的目标record被删除时，是否自动删除当前reco
     table CDATA #REQUIRED
     counter CDATA #IMPLIED
     ri_raw CDATA #IMPLIED
-    auto_remove (true|false) "false"
->
+    auto_remove (true|false) "false">
