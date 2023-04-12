@@ -6,7 +6,7 @@ LDFLAGS += -X "${GOMODULE}/pkg/version.BuildTS=$(shell date -u '+%Y-%m-%d %I:%M:
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitHash=$(shell git rev-parse HEAD)"
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitBranch=$(shell git rev-parse --abbrev-ref HEAD)"
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitTag=$(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)"
-LDFLAGS += -X "${GOMODULE}/pkg/version.GitDirty=$(shell test -n "` + "`" + `git status --porcelain` + "`" + `" && echo "true")"
+LDFLAGS += -X "${GOMODULE}/pkg/version.GitDirty=$(shell test -n "`git status --porcelain`" && echo "true")"
 LDFLAGS += -X "${GOMODULE}/pkg/version.Debug=$(shell if [ ${debug} -eq 1 ]; then echo "true"; fi)"
 
 ifeq ($(debug), 1)
@@ -70,7 +70,7 @@ clear:
 .PHONY: run
 # run binary
 run:
-	./build/bin/%%PROJECT-NAME%% -config ./configs/conf-local.yml
+	./build/bin/meta-egg-layout -config ./configs/conf-local.yml
 
 # show help
 help:
