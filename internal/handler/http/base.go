@@ -3,13 +3,13 @@
  * WILL NOT be replace after re-generated. CAREFULLY EDIT.
  * Version: master-7741ad1-dirty
  * Author: meta-egg
- * Generated at: 2023-04-12 19:59
+ * Generated at: 2023-04-12 23:49
  */
 package handler
 
 import (
-	"meta-egg-layout/gen/domain"
 	gen "meta-egg-layout/gen/handler/http"
+	"meta-egg-layout/internal/domain"
 
 	"github.com/google/wire"
 )

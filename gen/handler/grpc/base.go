@@ -3,13 +3,13 @@
  * Might be replace after re-generated. DO NOT EDIT!
  * Version: master-7741ad1-dirty
  * Author: meta-egg
- * Generated at: 2023-04-12 19:59
+ * Generated at: 2023-04-12 23:49
  */
 package handler
 
 import (
 	api "meta-egg-layout/api/meta_egg_layout"
-	"meta-egg-layout/gen/domain"
+	"meta-egg-layout/internal/domain"
 )
 
 type Handler struct {
