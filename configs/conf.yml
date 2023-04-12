@@ -1,0 +1,24 @@
+resource:
+  # 数据库配置
+  db:
+    # 数据库类型, 可选值: mysql
+    type: mysql
+    # 数据库连接字符串
+    dsn: "<username>:<pwd>@tcp(<host>)/<database>?charset=utf8mb4&timeout=5s&parseTime=True&loc=Asia%2FShanghai"
+  # JWT配置
+  jwt:
+    # 会话有效时长
+    max_age: 1h
+    # HS256相关
+    hs256_secret_is_base64: false # 密钥是否为base64编码
+    hs256_secret: "xxxxx" # 密钥
+
+http_server:
+  # HTTP服务监听地址
+  address: ":8080"
+  # HTTP服务读取请求头超时时间
+  read_header_timeout: 1s
+
+grpc_server:
+  # GRPC服务监听地址
+  address: ":8081"
