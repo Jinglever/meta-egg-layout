@@ -5,13 +5,13 @@ go 1.19
 require (
 	github.com/Jinglever/go-config v0.9.3
 	github.com/Jinglever/go-jwt v0.9.0
-	github.com/envoyproxy/protoc-gen-validate v0.10.1
+	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/gin-gonic/gin v1.9.0
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/sirupsen/logrus v1.9.0
-	google.golang.org/grpc v1.53.0-dev
-	google.golang.org/protobuf v1.30.0
+	google.golang.org/grpc v1.54.0
+	google.golang.org/protobuf v1.28.1
 	gorm.io/driver/mysql v1.5.0
 	gorm.io/gorm v1.25.0
 )
@@ -42,7 +42,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
-	github.com/spf13/afero v1.8.2 // indirect
+	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect

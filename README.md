@@ -1,2 +1,2 @@
 # meta-egg-layout
-MetaEgg Project Template
+MetaEgg Framework Template
