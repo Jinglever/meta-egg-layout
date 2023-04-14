@@ -1,6 +1,8 @@
 # meta-egg-layout
 MetaEgg Framework Template
 
+## Framework Generator
+https://github.com/Jinglever/meta-egg
 
 
 ## Usage
