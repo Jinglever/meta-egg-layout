@@ -8,7 +8,7 @@
 package handler
 
 import (
-	gen "meta-egg-layout/gen/handler/grpc"
+	api "meta-egg-layout/api/meta_egg_layout"
 	"meta-egg-layout/internal/domain"
 
 	"github.com/google/wire"
@@ -20,21 +20,18 @@ var ProviderSet = wire.NewSet(
 )
 
 type Handler struct {
-	gen.Handler
+	api.UnimplementedMetaEggLayoutServer
+	DomainUsecase *domain.DomainUsecase
 
 	// TODO: add your domain usecase
 }
 
 func NewHandler(
 	domainUsecase *domain.DomainUsecase,
-
 	// TODO: add your domain usecase
 ) *Handler {
 	return &Handler{
-		Handler: gen.Handler{
-			DomainUsecase: domainUsecase,
-		},
-
+		DomainUsecase: domainUsecase,
 		// TODO: setup your domain usecase
 	}
 }

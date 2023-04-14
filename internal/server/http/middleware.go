@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"strings"
 
-	genhandler "meta-egg-layout/gen/handler/http"
 	"meta-egg-layout/internal/common/cerror"
 	"meta-egg-layout/internal/common/contexts"
+	handler "meta-egg-layout/internal/handler/http"
 
 	jgjwt "github.com/Jinglever/go-jwt"
 	"github.com/gin-gonic/gin"
@@ -41,7 +41,7 @@ func errorHandler() gin.HandlerFunc {
 			}
 			c.JSON(
 				cErr.HttpStatus,
-				genhandler.RspBase{
+				handler.RspBase{
 					Code:    cErr.Code,
 					Message: cErr.Error(),
 				},

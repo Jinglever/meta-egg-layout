@@ -8,9 +8,11 @@
 package handler
 
 import (
-	gen "meta-egg-layout/gen/handler/http"
+	api "meta-egg-layout/api/meta_egg_layout"
+	"meta-egg-layout/internal/common/cerror"
 	"meta-egg-layout/internal/domain"
 
+	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
 )
 
@@ -19,9 +21,60 @@ var ProviderSet = wire.NewSet(
 	NewHandler,
 )
 
-type Handler struct {
-	gen.Handler
+type RspBase struct {
+	Code    api.ErrCode `json:"code"`
+	Message string      `json:"message"`
+}
 
+type RspData struct {
+	RspBase
+	Data interface{} `json:"data"`
+}
+
+// data如果为nil, 则响应RspBase{}; 否则响应RspData{}
+func ResponseSuccess(c *gin.Context, data interface{}) {
+	e := cerror.Ok()
+	if data != nil {
+		c.JSON(
+			e.HttpStatus,
+			RspData{
+				RspBase: RspBase{
+					Code:    e.Code,
+					Message: e.Error(),
+				},
+				Data: data,
+			},
+		)
+	} else {
+		c.JSON(
+			e.HttpStatus,
+			RspBase{
+				Code:    e.Code,
+				Message: e.Error(),
+			},
+		)
+	}
+}
+
+func ResponseFail(c *gin.Context, err error) {
+	var (
+		cErr *cerror.CustomError
+		ok   bool
+	)
+	if cErr, ok = err.(*cerror.CustomError); !ok {
+		cErr = cerror.Unknown(err.Error())
+	}
+	c.JSON(
+		cErr.HttpStatus,
+		RspBase{
+			Code:    cErr.Code,
+			Message: cErr.Error(),
+		},
+	)
+}
+
+type Handler struct {
+	DomainUsecase *domain.DomainUsecase
 	// TODO: add your domain usecase
 }
 
@@ -31,10 +84,7 @@ func NewHandler(
 	// TODO: add domain usecase
 ) *Handler {
 	return &Handler{
-		Handler: gen.Handler{
-			DomainUsecase: domainUsecase,
-		},
-
+		DomainUsecase: domainUsecase,
 		// TODO: setup domain usecase
 	}
 }
