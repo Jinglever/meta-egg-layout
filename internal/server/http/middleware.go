@@ -53,7 +53,7 @@ func errorHandler() gin.HandlerFunc {
 /*
  * 解析jwt token, 获得当前操作人信息
  */
-func authHandler(jwt *jgjwt.JWT) gin.HandlerFunc {
+func authHandler(jwt *jgjwt.JWT, cfg *Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenFields := strings.Fields(c.GetHeader(AuthToken))
 		if len(tokenFields) != 2 || tokenFields[0] != AuthTokenMark {
@@ -64,8 +64,15 @@ func authHandler(jwt *jgjwt.JWT) gin.HandlerFunc {
 		}
 		token := tokenFields[1]
 
-		// jwtClaim, err := jwt.DecodeTokenUnverified(token)
-		jwtClaim, err := jwt.DecodeHS256Token(token)
+		var (
+			jwtClaim *jgjwt.Claims
+			err      error
+		)
+		if cfg.VerifyJWT {
+			jwtClaim, err = jwt.DecodeHS256Token(token)
+		} else {
+			jwtClaim, err = jwt.DecodeTokenUnverified(token)
+		}
 		if err != nil {
 			logrus.Errorf("%s: invalid authorization token", c.Request.RequestURI)
 			c.Error(cerror.Unauthenticated("invalid authorization token"))

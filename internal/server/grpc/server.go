@@ -26,7 +26,8 @@ var ProviderSet = wire.NewSet(
 )
 
 type Config struct {
-	Address string `mapstructure:"address"`
+	Address   string `mapstructure:"address"`    // GRPC服务监听地址
+	VerifyJWT bool   `mapstructure:"verify_jwt"` // 是否验证JWT签名, 为false时, 会仅解析JWT, 不会验证JWT签名
 }
 
 type Server struct {
@@ -52,8 +53,8 @@ func (s *Server) Run() context.CancelFunc {
 
 	grpcServer := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			errorInterceptor,
-			authInterceptor,
+			errorInterceptor(),
+			authInterceptor(s.Resource.JWT, s.Cfg),
 		),
 	)
 	api.RegisterMetaEggLayoutServer(grpcServer, NewHandler(s.Resource))

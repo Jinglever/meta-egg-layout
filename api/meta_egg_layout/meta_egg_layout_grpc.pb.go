@@ -14,7 +14,10 @@
 package meta_egg_layout
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -22,12 +25,16 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-const ()
+const (
+	MetaEggLayout_GetUserDetail_FullMethodName = "/metaegglayout.MetaEggLayout/GetUserDetail"
+)
 
 // MetaEggLayoutClient is the client API for MetaEggLayout service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MetaEggLayoutClient interface {
+	// 获取用户详情
+	GetUserDetail(ctx context.Context, in *GetUserDetailRequest, opts ...grpc.CallOption) (*GetUserDetailResponse, error)
 }
 
 type metaEggLayoutClient struct {
@@ -38,10 +45,21 @@ func NewMetaEggLayoutClient(cc grpc.ClientConnInterface) MetaEggLayoutClient {
 	return &metaEggLayoutClient{cc}
 }
 
+func (c *metaEggLayoutClient) GetUserDetail(ctx context.Context, in *GetUserDetailRequest, opts ...grpc.CallOption) (*GetUserDetailResponse, error) {
+	out := new(GetUserDetailResponse)
+	err := c.cc.Invoke(ctx, MetaEggLayout_GetUserDetail_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MetaEggLayoutServer is the server API for MetaEggLayout service.
 // All implementations must embed UnimplementedMetaEggLayoutServer
 // for forward compatibility
 type MetaEggLayoutServer interface {
+	// 获取用户详情
+	GetUserDetail(context.Context, *GetUserDetailRequest) (*GetUserDetailResponse, error)
 	mustEmbedUnimplementedMetaEggLayoutServer()
 }
 
@@ -49,6 +67,9 @@ type MetaEggLayoutServer interface {
 type UnimplementedMetaEggLayoutServer struct {
 }
 
+func (UnimplementedMetaEggLayoutServer) GetUserDetail(context.Context, *GetUserDetailRequest) (*GetUserDetailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDetail not implemented")
+}
 func (UnimplementedMetaEggLayoutServer) mustEmbedUnimplementedMetaEggLayoutServer() {}
 
 // UnsafeMetaEggLayoutServer may be embedded to opt out of forward compatibility for this service.
@@ -62,13 +83,36 @@ func RegisterMetaEggLayoutServer(s grpc.ServiceRegistrar, srv MetaEggLayoutServe
 	s.RegisterService(&MetaEggLayout_ServiceDesc, srv)
 }
 
+func _MetaEggLayout_GetUserDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetaEggLayoutServer).GetUserDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetaEggLayout_GetUserDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetaEggLayoutServer).GetUserDetail(ctx, req.(*GetUserDetailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MetaEggLayout_ServiceDesc is the grpc.ServiceDesc for MetaEggLayout service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MetaEggLayout_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "metaegglayout.MetaEggLayout",
 	HandlerType: (*MetaEggLayoutServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "meta_egg_layout.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUserDetail",
+			Handler:    _MetaEggLayout_GetUserDetail_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "meta_egg_layout.proto",
 }

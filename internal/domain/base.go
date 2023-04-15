@@ -8,7 +8,6 @@
 package domain
 
 import (
-	gen "meta-egg-layout/gen/domain"
 	repo "meta-egg-layout/internal/repo"
 
 	"github.com/google/wire"
@@ -21,7 +20,8 @@ var ProviderSet = wire.NewSet(
 
 // 匿名用例
 type DomainUsecase struct {
-	gen.DomainUsecase
+	GenderRepo repo.GenderRepo
+	UserRepo   repo.UserRepo
 }
 
 func NewDomainUsecase(
@@ -30,9 +30,7 @@ func NewDomainUsecase(
 
 ) *DomainUsecase {
 	return &DomainUsecase{
-		DomainUsecase: gen.DomainUsecase{
-			GenderRepo: genderRepo,
-			UserRepo:   userRepo,
-		},
+		GenderRepo: genderRepo,
+		UserRepo:   userRepo,
 	}
 }

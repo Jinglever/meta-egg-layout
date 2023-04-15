@@ -15,14 +15,12 @@ func (s *Server) initRouter() {
 	router := gin.Default()
 	router.Use(errorHandler())
 	authGroup := router.Group("/v1")
-	authGroup.Use(authHandler(s.Resource.JWT))
+	authGroup.Use(authHandler(s.Resource.JWT, s.Cfg))
 
-	// handler := NewHandler(s.Resource)
+	handler := NewHandler(s.Resource)
 
 	// 用户
-	// TODO: add your router mapping here
-	// Such as:
-	//   authGroup.GET("/users/:id", handler.GetUserDetail)
+	authGroup.GET("/users/:id", handler.GetUserDetail)
 
 	s.Router = router
 }

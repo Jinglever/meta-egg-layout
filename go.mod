@@ -4,7 +4,8 @@ go 1.19
 
 require (
 	github.com/Jinglever/go-config v0.9.3
-	github.com/Jinglever/go-jwt v0.9.0
+	github.com/Jinglever/go-jwt v0.9.1
+	github.com/Jinglever/go-string v0.9.3
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/gin-gonic/gin v1.9.0
 	github.com/golang/mock v1.6.0
@@ -52,9 +53,11 @@ require (
 	github.com/ugorji/go/codec v1.2.9 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
+	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

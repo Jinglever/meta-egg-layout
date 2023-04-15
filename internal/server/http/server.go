@@ -25,8 +25,9 @@ var ProviderSet = wire.NewSet(
 )
 
 type Config struct {
-	Address           string        `mapstructure:"address"`
-	ReadHeaderTimeout time.Duration `mapstructure:"read_header_timeout"`
+	Address           string        `mapstructure:"address"`             // HTTP服务监听地址
+	ReadHeaderTimeout time.Duration `mapstructure:"read_header_timeout"` // HTTP服务读取请求头超时时间
+	VerifyJWT         bool          `mapstructure:"verify_jwt"`          // 是否验证JWT签名, 为false时, 会仅解析JWT, 不会验证JWT签名
 }
 
 type Server struct {
