@@ -27,6 +27,7 @@ init:
 	go install github.com/envoyproxy/protoc-gen-validate@latest
 	go install github.com/google/wire/cmd/wire@latest
 	go install github.com/golang/mock/mockgen@v1.6.0
+	go install github.com/swaggo/swag/cmd/swag@latest
 	go get github.com/google/wire/cmd/wire@latest
 	go get github.com/golang/mock/mockgen@v1.6.0
 	go mod tidy
@@ -42,7 +43,13 @@ pb:
 	  --validate_out=lang=go:./api \
 	  ./proto/*.proto
 
-generate: pb
+.PHONY: swag
+# generate api doc
+swag:
+	swag fmt -dir ./internal/handler/http/
+	swag init -g ./internal/server/http/router.go -o ./docs --parseDependency -q
+
+generate: pb swag
 # generate
 generate:
 	go get github.com/google/wire/cmd/wire@latest

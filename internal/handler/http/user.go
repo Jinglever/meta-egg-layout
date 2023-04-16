@@ -17,17 +17,17 @@ type UserDetail struct {
 	UpdatedAt int64   `json:"updated_at"` // 更新时间
 }
 
-// @Id	GetUserDetail
-// @Tags	User
-// @Summary	获取用户详情
-// @Description
-// @Accept	json
-// @Produce	json
-// @Param	X-Auth-Token	header	string	true	"jwt access token"
-// @Param	id	path	int	true	"用户ID"
-// @Success	200	{object}	RspData{data=UserDetail}
-// @Failure	40x	{object}	RspBase
-// @Router	/v1/users/:id [get]
+//	@Id			GetUserDetail
+//	@Tags		User
+//	@Summary	获取用户详情
+//	@Description
+//	@Accept		json
+//	@Produce	json
+//	@Param		X-Auth-Token	header		string	true	"jwt access token"
+//	@Param		id				path		int		true	"用户ID"
+//	@Success	200				{object}	RspData{data=UserDetail}
+//	@Failure	400				{object}	RspBase
+//	@Router		/v1/users/:id [get]
 func (h *Handler) GetUserDetail(c *gin.Context) {
 	id := jgstr.UintVal(c.Param("id"))
 	mUser, err := h.DomainUsecase.GetUserByID(c.Request.Context(), id)
