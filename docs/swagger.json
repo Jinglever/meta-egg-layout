@@ -1,10 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "meta-egg-layout",
+        "contact": {},
+        "version": "xxx"
     },
     "paths": {
-        "/v1/users/:id": {
+        "/v1/users/{id}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -20,8 +22,8 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "jwt access token",
-                        "name": "X-Auth-Token",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
                         "in": "header",
                         "required": true
                     },

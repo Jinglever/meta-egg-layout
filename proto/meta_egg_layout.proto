@@ -1,13 +1,12 @@
 syntax = "proto3";
 package metaegglayout;
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
-import "error.proto";
 option go_package = "./meta_egg_layout";
 
 // GetUserDetailRequest 获取用户详情请求
 message GetUserDetailRequest {
     // 用户ID
-    uint64 id = 1 [(validate.rules).uint64 = {gt: 0}];
+    uint64 id = 1 [(validate.rules).uint64 = {gt: 1}];
 }
 
 // GetUserDetailResponse 获取用户详情响应

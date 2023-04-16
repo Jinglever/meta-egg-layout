@@ -86,16 +86,18 @@ definitions:
     - ErrCode_Unauthenticated
 info:
   contact: {}
+  title: meta-egg-layout
+  version: xxx
 paths:
-  /v1/users/:id:
+  /v1/users/{id}:
     get:
       consumes:
       - application/json
       operationId: GetUserDetail
       parameters:
-      - description: jwt access token
+      - description: Bearer <jwt-token>
         in: header
-        name: X-Auth-Token
+        name: Authorization
         required: true
         type: string
       - description: 用户ID

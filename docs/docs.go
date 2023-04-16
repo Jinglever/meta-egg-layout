@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/users/:id": {
+        "/v1/users/{id}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -32,8 +32,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "jwt access token",
-                        "name": "X-Auth-Token",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
                         "in": "header",
                         "required": true
                     },
@@ -186,11 +186,11 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "xxx",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
+	Title:            "meta-egg-layout",
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

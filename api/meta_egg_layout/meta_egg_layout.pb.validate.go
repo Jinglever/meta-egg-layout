@@ -57,10 +57,10 @@ func (m *GetUserDetailRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetId() <= 0 {
+	if m.GetId() <= 1 {
 		err := GetUserDetailRequestValidationError{
 			field:  "Id",
-			reason: "value must be greater than 0",
+			reason: "value must be greater than 1",
 		}
 		if !all {
 			return err
