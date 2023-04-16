@@ -18,7 +18,7 @@ import (
 func NewHandler(rsrc *resource.Resource) *handler.Handler {
 	genderRepo := repo.NewGenderRepo(rsrc)
 	userRepo := repo.NewUserRepo(rsrc)
-	domainUsecase := domain.NewDomainUsecase(genderRepo, userRepo)
-	handlerHandler := handler.NewHandler(domainUsecase)
+	domainUsecase := domain.NewDomainUsecase(rsrc, genderRepo, userRepo)
+	handlerHandler := handler.NewHandler(rsrc, domainUsecase)
 	return handlerHandler
 }

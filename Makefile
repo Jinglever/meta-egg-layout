@@ -47,7 +47,7 @@ pb:
 # generate api doc
 swag:
 	swag fmt -dir ./internal/handler/http/
-	swag init -g ./internal/server/http/router.go -o ./docs --parseDependency -q
+	swag init -g ./internal/server/http/router.go -o ./docs --parseDependency -q --exclude ./_manifest
 
 generate: pb swag
 # generate

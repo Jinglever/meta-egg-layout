@@ -20,13 +20,12 @@ definitions:
         description: 创建时间
         type: integer
       created_by:
-        description: 创建人
+        description: 创建者
         type: integer
       gender:
         description: 性别
         type: integer
       id:
-        description: 用户ID
         type: integer
       name:
         description: 用户名
@@ -35,7 +34,7 @@ definitions:
         description: 更新时间
         type: integer
       updated_by:
-        description: 更新人
+        description: 更新者
         type: integer
     type: object
   meta-egg-layout_api_meta_egg_layout.ErrCode:

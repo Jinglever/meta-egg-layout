@@ -172,7 +172,7 @@ func (m *GetUserDetailResponse) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for Gener
+	// no validation rules for Gender
 
 	// no validation rules for CreatedAt
 

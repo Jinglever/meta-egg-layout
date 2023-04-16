@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project SYSTEM "meta_egg.dtd">
 
-<project name="meta-egg-layout" desc="MetaEgg Framework Template" go_module="meta-egg-layout" go_version="1.19">
-    <database name="meta-egg-layout" type="MySQL" charset="utf8mb4" >
+<project name="meta-egg-layout" desc="MetaEgg Framework Template" go_module="meta-egg-layout" go_version="1.19" server_type="ALL">
+    <database name="meta-egg-layout" type="MySQL" charset="utf8mb4">
         <!-- 实体表示例 -->
-        <table name="user" type="DATA" comment="用户">
+        <table name="user" type="DATA" comment="用户" handler="true">
             <column name="id" type="_ID" />
             <column name="name" type="VARCHAR" length="64" comment="用户名" />
             <column name="gender" type="_FID" required="true" comment="性别">

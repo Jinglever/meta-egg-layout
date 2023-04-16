@@ -106,7 +106,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "created_by": {
-                    "description": "创建人",
+                    "description": "创建者",
                     "type": "integer"
                 },
                 "gender": {
@@ -114,7 +114,6 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "id": {
-                    "description": "用户ID",
                     "type": "integer"
                 },
                 "name": {
@@ -126,7 +125,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "updated_by": {
-                    "description": "更新人",
+                    "description": "更新者",
                     "type": "integer"
                 }
             }
