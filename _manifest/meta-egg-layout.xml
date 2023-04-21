@@ -5,9 +5,9 @@
     <database name="meta-egg-layout" type="MySQL" charset="utf8mb4">
         <!-- 实体表示例 -->
         <table name="user" type="DATA" comment="用户" handler="true">
-            <column name="id" type="_ID" />
+            <column name="id" type="_ID" order="true" />
             <column name="name" type="VARCHAR" length="64" comment="用户名" />
-            <column name="gender" type="_FID" required="true" comment="性别">
+            <column name="gender" type="_FID" required="true" comment="性别" filter="true">
                 <foreign_key table="gender" />
             </column>
             <column name="created_by" type="_ME_CREATE" required="false" comment="创建者">

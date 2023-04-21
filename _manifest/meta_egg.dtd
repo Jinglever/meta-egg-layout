@@ -1,6 +1,9 @@
 <!-- project: 项目
 name: 项目英文名
 desc: 项目描述
+go_module: 项目的go module名
+go_version: 项目的go版本
+server_type: 项目的服务类型 (HTTP|GRPC|ALL)
 -->
 <!ELEMENT project (domain*, database*)>
 <!ATTLIST project
@@ -8,19 +11,17 @@ desc: 项目描述
     desc CDATA #REQUIRED
     go_module CDATA #REQUIRED
     go_version CDATA #REQUIRED
+    server_type (HTTP|GRPC|ALL) #REQUIRED
 >
 <!-- domain: 领域 -->
 <!ELEMENT domain (usecase*)>
 <!-- usecase: 用例
-name: 用例名, 保留词：anonymous
+name: 用例名, 保留词：anonymous, domain
 desc: 用例描述
 -->
-<!ELEMENT database (table+)>
-<!ATTLIST database
+<!ATTLIST usecase
     name CDATA #REQUIRED
-    type (MySQL|TiDB) #REQUIRED
-    charset CDATA "utf8mb4"
-    collate CDATA #IMPLIED
+    desc CDATA #REQUIRED
 >
 <!-- database: 数据库
 name: 库名
@@ -44,6 +45,7 @@ charset: 字符集
 collate: 排序规则
 comment: 表描述
 usecase: 所属用例名, 如果不填则表示该表属于anonymous用例
+handler: 是否生成该表的handler
 -->
 <!ELEMENT table (column+, index*, unique*)>
 <!ATTLIST table
@@ -53,7 +55,7 @@ usecase: 所属用例名, 如果不填则表示该表属于anonymous用例
     collate CDATA #IMPLIED
     comment CDATA #REQUIRED
     usecase CDATA #IMPLIED
->
+    handler (true|false) "false">
 <!-- column: 表字段
 name: 字段名
 type: 字段类型
@@ -76,6 +78,9 @@ unique: 是否对字段加唯一索引
 comment: 字段描述
 insert_default: 在插入记录时该字段的默认值
 ri_key: 是否倒排索引的key
+hidden: 在标准handler里是否对前端隐藏
+filter: 是否支持filter
+order: 是否支持order
 -->
 <!ELEMENT column (foreign_key*)>
 <!ATTLIST column
@@ -90,7 +95,10 @@ ri_key: 是否倒排索引的key
     unique (true|false) "false"
     comment CDATA #IMPLIED
     insert_default CDATA #IMPLIED
-    ri_key (true|false) "false">
+    ri_key (true|false) "false"
+    hidden (true|false) "false"
+    filter (true|false) "false"
+    order (true|false) "false">
 <!-- index: 联合索引，至少要有两个字段以上-->
 <!ELEMENT index (index_column, index_column+)>
 <!-- unique: 联合唯一索引，至少要有两个字段以上-->
