@@ -30,7 +30,6 @@ init:
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go get github.com/google/wire/cmd/wire@latest
 	go get github.com/golang/mock/mockgen@v1.6.0
-	go mod tidy
 
 .PHONY: pb
 # generate api proto

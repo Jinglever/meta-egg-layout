@@ -1,4 +1,17 @@
 definitions:
+  internal_handler_http.ReqCreateUser:
+    properties:
+      gender:
+        description: 性别
+        minimum: 1
+        type: integer
+      name:
+        description: 用户名
+        maxLength: 64
+        type: string
+    required:
+    - gender
+    type: object
   internal_handler_http.RspBase:
     properties:
       code:
@@ -35,6 +48,17 @@ definitions:
         type: integer
       updated_by:
         description: 更新者
+        type: integer
+    type: object
+  internal_handler_http.UserList:
+    properties:
+      list:
+        description: 用户列表
+        items:
+          $ref: '#/definitions/internal_handler_http.UserDetail'
+        type: array
+      total:
+        description: 总数
         type: integer
     type: object
   meta-egg-layout_api_meta_egg_layout.ErrCode:
@@ -89,6 +113,93 @@ info:
   title: meta-egg-layout
   version: xxx
 paths:
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      operationId: GetUserList
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码, 从1开始
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页数量, 要求大于0
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: 性别
+        in: query
+        name: gender
+        type: integer
+      - description: '排序字段, 可选: id'
+        in: query
+        name: order_by
+        type: string
+      - description: 排序类型,默认desc
+        in: query
+        name: order_type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.UserList'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取用户列表
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      operationId: CreateUser
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqCreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.UserDetail'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 创建用户
+      tags:
+      - User
   /v1/users/{id}:
     get:
       consumes:

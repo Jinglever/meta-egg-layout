@@ -16,6 +16,145 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/users": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "获取用户列表",
+                "operationId": "GetUserList",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码, 从1开始",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页数量, 要求大于0",
+                        "name": "page_size",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "性别",
+                        "name": "gender",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序字段, 可选: id",
+                        "name": "order_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "排序类型,默认desc",
+                        "name": "order_type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_handler_http.RspData"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/internal_handler_http.UserList"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "创建用户",
+                "operationId": "CreateUser",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "用户",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.ReqCreateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_handler_http.RspData"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/internal_handler_http.UserDetail"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users/{id}": {
             "get": {
                 "consumes": [
@@ -75,6 +214,24 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "internal_handler_http.ReqCreateUser": {
+            "type": "object",
+            "required": [
+                "gender"
+            ],
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "name": {
+                    "description": "用户名",
+                    "type": "string",
+                    "maxLength": 64
+                }
+            }
+        },
         "internal_handler_http.RspBase": {
             "type": "object",
             "properties": {
@@ -126,6 +283,22 @@ const docTemplate = `{
                 },
                 "updated_by": {
                     "description": "更新者",
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_handler_http.UserList": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "description": "用户列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_handler_http.UserDetail"
+                    }
+                },
+                "total": {
+                    "description": "总数",
                     "type": "integer"
                 }
             }
