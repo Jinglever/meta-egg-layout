@@ -115,6 +115,39 @@ info:
 paths:
   /v1/users:
     get:
+      consumes:
+      - application/json
+      operationId: GetUserList
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码, 从1开始
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页数量, 要求大于0
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: 性别
+        in: query
+        name: gender
+        type: integer
+      - description: '排序字段, 可选: id'
+        in: query
+        name: order_by
+        type: string
+      - description: 排序类型,默认desc
+        in: query
+        name: order_type
+        type: string
+      produces:
+      - application/json
       responses:
         "200":
           description: OK
@@ -129,6 +162,9 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取用户列表
+      tags:
+      - User
     post:
       consumes:
       - application/json
