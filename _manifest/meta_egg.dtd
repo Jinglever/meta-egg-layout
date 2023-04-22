@@ -40,6 +40,8 @@ name: 表名, 保留词：base
 type: 表类型
     META: 元数据表
     DATA: 实体表
+    BR: 多对多的二元关系表
+    RL: 一对多关系表
     RI: 倒排索引表
 charset: 字符集
 collate: 排序规则
@@ -50,7 +52,7 @@ handler: 是否生成该表的handler
 <!ELEMENT table (column+, index*, unique*)>
 <!ATTLIST table
     name CDATA #REQUIRED
-    type (META|DATA|RI) #REQUIRED
+    type (META|DATA|BR|RL|RI) #REQUIRED
     charset CDATA #IMPLIED
     collate CDATA #IMPLIED
     comment CDATA #REQUIRED
