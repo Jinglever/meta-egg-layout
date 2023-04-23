@@ -83,6 +83,7 @@ ri_key: 是否倒排索引的key
 hidden: 在标准handler里是否对前端隐藏
 filter: 是否支持filter
 order: 是否支持order
+list:  是否在列表页显示
 -->
 <!ELEMENT column (foreign_key*)>
 <!ATTLIST column
@@ -100,7 +101,8 @@ order: 是否支持order
     ri_key (true|false) "false"
     hidden (true|false) "false"
     filter (true|false) "false"
-    order (true|false) "false">
+    order (true|false) "false"
+    list (true|false) "false">
 <!-- index: 联合索引，至少要有两个字段以上-->
 <!ELEMENT index (index_column, index_column+)>
 <!-- unique: 联合唯一索引，至少要有两个字段以上-->

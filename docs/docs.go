@@ -294,12 +294,28 @@ const docTemplate = `{
                     "description": "用户列表",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/internal_handler_http.UserDetail"
+                        "$ref": "#/definitions/internal_handler_http.UserListInfo"
                     }
                 },
                 "total": {
                     "description": "总数",
                     "type": "integer"
+                }
+            }
+        },
+        "internal_handler_http.UserListInfo": {
+            "type": "object",
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "用户名",
+                    "type": "string"
                 }
             }
         },
@@ -367,6 +383,8 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
+	LeftDelim:        "{{",
+	RightDelim:       "}}",
 }
 
 func init() {
