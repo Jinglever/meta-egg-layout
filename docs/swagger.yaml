@@ -55,11 +55,22 @@ definitions:
       list:
         description: 用户列表
         items:
-          $ref: '#/definitions/internal_handler_http.UserDetail'
+          $ref: '#/definitions/internal_handler_http.UserListInfo'
         type: array
       total:
         description: 总数
         type: integer
+    type: object
+  internal_handler_http.UserListInfo:
+    properties:
+      gender:
+        description: 性别
+        type: integer
+      id:
+        type: integer
+      name:
+        description: 用户名
+        type: string
     type: object
   meta-egg-layout_api_meta_egg_layout.ErrCode:
     enum:
