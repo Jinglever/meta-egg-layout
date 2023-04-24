@@ -30,6 +30,7 @@ init:
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go get github.com/google/wire/cmd/wire@latest
 	go get github.com/golang/mock/mockgen@v1.6.0
+	go get github.com/swaggo/swag/cmd/swag@latest
 
 .PHONY: pb
 # generate api proto
@@ -45,14 +46,17 @@ pb:
 .PHONY: swag
 # generate api doc
 swag:
+ifeq ($(wildcard internal/handler/http),internal/handler/http) 
 	swag fmt -dir ./internal/handler/http/
 	swag init -g ./internal/server/http/router.go -o ./docs --parseDependency -q --exclude ./_manifest
+endif
 
 generate: pb swag
 # generate
 generate:
 	go get github.com/google/wire/cmd/wire@latest
 	go get github.com/golang/mock/mockgen@v1.6.0
+	go get github.com/swaggo/swag/cmd/swag@latest
 	go generate ./...
 	go mod tidy
 
