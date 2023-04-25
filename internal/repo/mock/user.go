@@ -175,18 +175,18 @@ func (mr *MockUserRepoMockRecorder) GetByIDs(arg0, arg1 interface{}, arg2 ...int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByIDs", reflect.TypeOf((*MockUserRepo)(nil).GetByIDs), varargs...)
 }
 
-// GetDB mocks base method.
-func (m *MockUserRepo) GetDB() *gorm.DB {
+// GetTX mocks base method.
+func (m *MockUserRepo) GetTX(arg0 context.Context) *gorm.DB {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetDB")
+	ret := m.ctrl.Call(m, "GetTX", arg0)
 	ret0, _ := ret[0].(*gorm.DB)
 	return ret0
 }
 
-// GetDB indicates an expected call of GetDB.
-func (mr *MockUserRepoMockRecorder) GetDB() *gomock.Call {
+// GetTX indicates an expected call of GetTX.
+func (mr *MockUserRepoMockRecorder) GetTX(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDB", reflect.TypeOf((*MockUserRepo)(nil).GetDB))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTX", reflect.TypeOf((*MockUserRepo)(nil).GetTX), arg0)
 }
 
 // Gets mocks base method.
@@ -209,61 +209,11 @@ func (mr *MockUserRepoMockRecorder) Gets(arg0 interface{}, arg1 ...interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Gets", reflect.TypeOf((*MockUserRepo)(nil).Gets), varargs...)
 }
 
-// Increase mocks base method.
-func (m *MockUserRepo) Increase(arg0 context.Context, arg1 map[string]interface{}, arg2 ...option.Option) (int64, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Increase", varargs...)
-	ret0, _ := ret[0].(int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Increase indicates an expected call of Increase.
-func (mr *MockUserRepoMockRecorder) Increase(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Increase", reflect.TypeOf((*MockUserRepo)(nil).Increase), varargs...)
-}
-
-// IncreaseByID mocks base method.
-func (m *MockUserRepo) IncreaseByID(arg0 context.Context, arg1 uint64, arg2 map[string]interface{}) (int64, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IncreaseByID", arg0, arg1, arg2)
-	ret0, _ := ret[0].(int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// IncreaseByID indicates an expected call of IncreaseByID.
-func (mr *MockUserRepoMockRecorder) IncreaseByID(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IncreaseByID", reflect.TypeOf((*MockUserRepo)(nil).IncreaseByID), arg0, arg1, arg2)
-}
-
-// IncreaseByIDs mocks base method.
-func (m *MockUserRepo) IncreaseByIDs(arg0 context.Context, arg1 []uint64, arg2 map[string]interface{}) (int64, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IncreaseByIDs", arg0, arg1, arg2)
-	ret0, _ := ret[0].(int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// IncreaseByIDs indicates an expected call of IncreaseByIDs.
-func (mr *MockUserRepoMockRecorder) IncreaseByIDs(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IncreaseByIDs", reflect.TypeOf((*MockUserRepo)(nil).IncreaseByIDs), arg0, arg1, arg2)
-}
-
 // Update mocks base method.
-func (m *MockUserRepo) Update(arg0 context.Context, arg1 map[string]interface{}, arg2 ...option.Option) (int64, error) {
+func (m *MockUserRepo) Update(arg0 context.Context, arg1, arg2 map[string]interface{}, arg3 ...option.Option) (int64, error) {
 	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Update", varargs...)
@@ -273,38 +223,38 @@ func (m *MockUserRepo) Update(arg0 context.Context, arg1 map[string]interface{},
 }
 
 // Update indicates an expected call of Update.
-func (mr *MockUserRepoMockRecorder) Update(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+func (mr *MockUserRepoMockRecorder) Update(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockUserRepo)(nil).Update), varargs...)
 }
 
 // UpdateByID mocks base method.
-func (m *MockUserRepo) UpdateByID(arg0 context.Context, arg1 uint64, arg2 map[string]interface{}) (int64, error) {
+func (m *MockUserRepo) UpdateByID(arg0 context.Context, arg1 uint64, arg2, arg3 map[string]interface{}) (int64, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateByID", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "UpdateByID", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateByID indicates an expected call of UpdateByID.
-func (mr *MockUserRepoMockRecorder) UpdateByID(arg0, arg1, arg2 interface{}) *gomock.Call {
+func (mr *MockUserRepoMockRecorder) UpdateByID(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByID", reflect.TypeOf((*MockUserRepo)(nil).UpdateByID), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByID", reflect.TypeOf((*MockUserRepo)(nil).UpdateByID), arg0, arg1, arg2, arg3)
 }
 
 // UpdateByIDs mocks base method.
-func (m *MockUserRepo) UpdateByIDs(arg0 context.Context, arg1 []uint64, arg2 map[string]interface{}) (int64, error) {
+func (m *MockUserRepo) UpdateByIDs(arg0 context.Context, arg1 []uint64, arg2, arg3 map[string]interface{}) (int64, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateByIDs", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "UpdateByIDs", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateByIDs indicates an expected call of UpdateByIDs.
-func (mr *MockUserRepoMockRecorder) UpdateByIDs(arg0, arg1, arg2 interface{}) *gomock.Call {
+func (mr *MockUserRepoMockRecorder) UpdateByIDs(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByIDs", reflect.TypeOf((*MockUserRepo)(nil).UpdateByIDs), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByIDs", reflect.TypeOf((*MockUserRepo)(nil).UpdateByIDs), arg0, arg1, arg2, arg3)
 }

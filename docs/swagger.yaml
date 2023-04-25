@@ -12,6 +12,17 @@ definitions:
     required:
     - gender
     type: object
+  internal_handler_http.ReqUpdateUser:
+    properties:
+      gender:
+        description: 性别
+        minimum: 1
+        type: integer
+      name:
+        description: 用户名
+        maxLength: 64
+        type: string
+    type: object
   internal_handler_http.RspBase:
     properties:
       code:
@@ -33,7 +44,7 @@ definitions:
         description: 创建时间
         type: integer
       created_by:
-        description: 创建者
+        description: 创建者 (nullable)
         type: integer
       gender:
         description: 性别
@@ -41,13 +52,13 @@ definitions:
       id:
         type: integer
       name:
-        description: 用户名
+        description: 用户名 (nullable)
         type: string
       updated_at:
         description: 更新时间
         type: integer
       updated_by:
-        description: 更新者
+        description: 更新者 (nullable)
         type: integer
     type: object
   internal_handler_http.UserList:
@@ -69,7 +80,7 @@ definitions:
       id:
         type: integer
       name:
-        description: 用户名
+        description: 用户名 (nullable)
         type: string
     type: object
   meta-egg-layout_api_meta_egg_layout.ErrCode:
@@ -175,7 +186,7 @@ paths:
             $ref: '#/definitions/internal_handler_http.RspBase'
       summary: 获取用户列表
       tags:
-      - User
+      - 用户
     post:
       consumes:
       - application/json
@@ -188,7 +199,7 @@ paths:
         type: string
       - description: 用户
         in: body
-        name: user
+        name: body
         required: true
         schema:
           $ref: '#/definitions/internal_handler_http.ReqCreateUser'
@@ -210,7 +221,7 @@ paths:
             $ref: '#/definitions/internal_handler_http.RspBase'
       summary: 创建用户
       tags:
-      - User
+      - 用户
   /v1/users/{id}:
     get:
       consumes:
@@ -245,5 +256,40 @@ paths:
             $ref: '#/definitions/internal_handler_http.RspBase'
       summary: 获取用户详情
       tags:
-      - User
+      - 用户
+    put:
+      consumes:
+      - application/json
+      operationId: UpdateUser
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 请求体
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqUpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 更新用户
+      tags:
+      - 用户
 swagger: "2.0"

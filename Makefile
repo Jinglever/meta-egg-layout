@@ -35,6 +35,7 @@ init:
 .PHONY: pb
 # generate api proto
 pb:
+	rm -rf api/meta_egg_layout
 	protoc \
 	  --proto_path ./proto \
 	  --proto_path ./third_party/proto \
