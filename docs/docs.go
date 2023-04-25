@@ -25,7 +25,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "用户"
                 ],
                 "summary": "获取用户列表",
                 "operationId": "GetUserList",
@@ -105,7 +105,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "用户"
                 ],
                 "summary": "创建用户",
                 "operationId": "CreateUser",
@@ -119,7 +119,7 @@ const docTemplate = `{
                     },
                     {
                         "description": "用户",
-                        "name": "user",
+                        "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -164,7 +164,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "用户"
                 ],
                 "summary": "获取用户详情",
                 "operationId": "GetUserDetail",
@@ -210,6 +210,58 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "更新用户",
+                "operationId": "UpdateUser",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "请求体",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.ReqUpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    }
+                }
             }
         }
     },
@@ -219,6 +271,21 @@ const docTemplate = `{
             "required": [
                 "gender"
             ],
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "name": {
+                    "description": "用户名",
+                    "type": "string",
+                    "maxLength": 64
+                }
+            }
+        },
+        "internal_handler_http.ReqUpdateUser": {
+            "type": "object",
             "properties": {
                 "gender": {
                     "description": "性别",
@@ -263,7 +330,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "created_by": {
-                    "description": "创建者",
+                    "description": "创建者 (nullable)",
                     "type": "integer"
                 },
                 "gender": {
@@ -274,7 +341,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
-                    "description": "用户名",
+                    "description": "用户名 (nullable)",
                     "type": "string"
                 },
                 "updated_at": {
@@ -282,7 +349,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "updated_by": {
-                    "description": "更新者",
+                    "description": "更新者 (nullable)",
                     "type": "integer"
                 }
             }
@@ -314,7 +381,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
-                    "description": "用户名",
+                    "description": "用户名 (nullable)",
                     "type": "string"
                 }
             }
