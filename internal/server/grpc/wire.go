@@ -6,18 +6,20 @@
 package server
 
 import (
+	"meta-egg-layout/internal/biz"
 	"meta-egg-layout/internal/common/resource"
-	domain "meta-egg-layout/internal/domain"
 	handler "meta-egg-layout/internal/handler/grpc"
 	repo "meta-egg-layout/internal/repo"
 
 	"github.com/google/wire"
+	//"meta-egg-layout/internal/usecase"
 )
 
 func NewHandler(rsrc *resource.Resource) *handler.Handler {
 	panic(wire.Build(
 		repo.ProviderSet,
-		domain.ProviderSet,
+		biz.ProviderSet,
+		//usecase.ProviderSet,
 		handler.ProviderSet,
 	))
 }

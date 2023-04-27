@@ -7,8 +7,8 @@
 package server
 
 import (
+	"meta-egg-layout/internal/biz"
 	"meta-egg-layout/internal/common/resource"
-	"meta-egg-layout/internal/domain/crud"
 	"meta-egg-layout/internal/handler/http"
 	"meta-egg-layout/internal/repo"
 )
@@ -16,9 +16,9 @@ import (
 // Injectors from wire.go:
 
 func NewHandler(rsrc *resource.Resource) *handler.Handler {
-	genderRepo := repo.NewGenderRepo(rsrc)
 	userRepo := repo.NewUserRepo(rsrc)
-	crudUsecase := crud.NewCrudUsecase(rsrc, genderRepo, userRepo)
-	handlerHandler := handler.NewHandler(rsrc, crudUsecase)
+	genderRepo := repo.NewGenderRepo(rsrc)
+	bizService := biz.NewBizService(rsrc, userRepo, genderRepo)
+	handlerHandler := handler.NewHandler(rsrc, bizService)
 	return handlerHandler
 }
