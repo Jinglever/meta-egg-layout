@@ -16,7 +16,7 @@ server_type: 项目的服务类型 (HTTP|GRPC|ALL)
 <!-- domain: 领域 -->
 <!ELEMENT domain (usecase*)>
 <!-- usecase: 用例
-name: 用例名, 保留词：anonymous, domain
+name: 用例名, 保留词：crud
 desc: 用例描述
 -->
 <!ATTLIST usecase
@@ -46,7 +46,6 @@ type: 表类型
 charset: 字符集
 collate: 排序规则
 comment: 表描述
-usecase: 所属用例名, 如果不填则表示该表属于anonymous用例
 handler: 是否生成该表的handler
 -->
 <!ELEMENT table (column+, index*, unique*)>
@@ -56,7 +55,6 @@ handler: 是否生成该表的handler
     charset CDATA #IMPLIED
     collate CDATA #IMPLIED
     comment CDATA #REQUIRED
-    usecase CDATA #IMPLIED
     handler (true|false) "false">
 <!-- column: 表字段
 name: 字段名

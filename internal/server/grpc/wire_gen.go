@@ -8,7 +8,7 @@ package server
 
 import (
 	"meta-egg-layout/internal/common/resource"
-	"meta-egg-layout/internal/domain"
+	"meta-egg-layout/internal/domain/crud"
 	"meta-egg-layout/internal/handler/grpc"
 	"meta-egg-layout/internal/repo"
 )
@@ -18,7 +18,7 @@ import (
 func NewHandler(rsrc *resource.Resource) *handler.Handler {
 	genderRepo := repo.NewGenderRepo(rsrc)
 	userRepo := repo.NewUserRepo(rsrc)
-	domainUsecase := domain.NewDomainUsecase(rsrc, genderRepo, userRepo)
-	handlerHandler := handler.NewHandler(rsrc, domainUsecase)
+	crudUsecase := crud.NewCrudUsecase(rsrc, genderRepo, userRepo)
+	handlerHandler := handler.NewHandler(rsrc, crudUsecase)
 	return handlerHandler
 }
