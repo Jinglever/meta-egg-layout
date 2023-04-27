@@ -5,7 +5,7 @@ go_module: 项目的go module名
 go_version: 项目的go版本
 server_type: 项目的服务类型 (HTTP|GRPC|ALL)
 -->
-<!ELEMENT project (domain*, database*)>
+<!ELEMENT project (usecases*, database*)>
 <!ATTLIST project
     name CDATA #REQUIRED
     desc CDATA #REQUIRED
