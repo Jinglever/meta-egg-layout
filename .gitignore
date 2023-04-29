@@ -1,5 +1,5 @@
-configs/conf-local.yml
+configs/*-local.yml
+_manifest/*-local.yml
 build/bin/*
 _manifest/sql
 _manifest/generated
-_manifest/env.yml
