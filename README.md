@@ -21,7 +21,7 @@ sudo ls -s /usr/local/protoc/bin/protoc /usr/local/bin/protoc
 make init
 ```
 
-### Generate pb/wier/mock
+### Generate pb/swag/wire/mock
 ```bash
 make generate
 ```
