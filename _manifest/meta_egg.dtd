@@ -32,7 +32,7 @@ collate: 排序规则
 <!ELEMENT database (table+)>
 <!ATTLIST database
     name CDATA #REQUIRED
-    type (MySQL|TiDB) #REQUIRED
+    type (MySQL|TiDB|PostgreSQL) #REQUIRED
     charset CDATA "utf8mb4"
     collate CDATA #IMPLIED
 >
