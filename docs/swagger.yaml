@@ -42,7 +42,7 @@ definitions:
     properties:
       created_at:
         description: 创建时间
-        type: integer
+        type: string
       created_by:
         description: 创建者 (nullable)
         type: integer
@@ -56,7 +56,7 @@ definitions:
         type: string
       updated_at:
         description: 更新时间
-        type: integer
+        type: string
       updated_by:
         description: 更新者 (nullable)
         type: integer
@@ -223,6 +223,35 @@ paths:
       tags:
       - 用户
   /v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: DeleteUser
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 删除用户
+      tags:
+      - 用户
     get:
       consumes:
       - application/json

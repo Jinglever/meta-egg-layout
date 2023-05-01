@@ -15,9 +15,9 @@ message GetUserDetailResponse {
     optional string name = 2; // 用户名
     uint64 gender = 3; // 性别
     optional uint64 created_by = 4; // 创建者
-    int64 created_at = 5; // 创建时间
+    string created_at = 5; // 创建时间
     optional uint64 updated_by = 6; // 更新者
-    int64 updated_at = 7; // 更新时间
+    string updated_at = 7; // 更新时间
 
 }
 

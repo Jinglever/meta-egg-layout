@@ -262,6 +262,49 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "删除用户",
+                "operationId": "DeleteUser",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer \u003cjwt-token\u003e",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handler_http.RspBase"
+                        }
+                    }
+                }
             }
         }
     },
@@ -327,7 +370,7 @@ const docTemplate = `{
             "properties": {
                 "created_at": {
                     "description": "创建时间",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "created_by": {
                     "description": "创建者 (nullable)",
@@ -346,7 +389,7 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "description": "更新时间",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "updated_by": {
                     "description": "更新者 (nullable)",
