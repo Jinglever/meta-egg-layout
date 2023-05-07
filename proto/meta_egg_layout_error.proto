@@ -106,5 +106,6 @@ enum ErrCode {
 	// authentication credentials for the operation.
     Unauthenticated = 16; // 未认证，客户端未提供凭据或提供的凭据无效
 
+	MaxReservedErrCode = 1000; // 预留错误码最大值
     //////////////// custom err code start from 1001 //////////////
 }

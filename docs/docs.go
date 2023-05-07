@@ -445,7 +445,8 @@ const docTemplate = `{
                 13,
                 14,
                 15,
-                16
+                16,
+                1000
             ],
             "x-enum-comments": {
                 "ErrCode_Aborted": "操作被中止",
@@ -454,6 +455,7 @@ const docTemplate = `{
                 "ErrCode_FailedPrecondition": "前置条件失败",
                 "ErrCode_Internal": "内部错误",
                 "ErrCode_InvalidArgument": "参数错",
+                "ErrCode_MaxReservedErrCode": "预留错误码最大值",
                 "ErrCode_NotFound": "实体不存在",
                 "ErrCode_Ok": "成功",
                 "ErrCode_OutOfRange": "超出范围",
@@ -477,7 +479,8 @@ const docTemplate = `{
                 "ErrCode_Internal",
                 "ErrCode_Unavailable",
                 "ErrCode_DataLoss",
-                "ErrCode_Unauthenticated"
+                "ErrCode_Unauthenticated",
+                "ErrCode_MaxReservedErrCode"
             ]
         }
     }
