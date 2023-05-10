@@ -7,7 +7,7 @@ package mock
 import (
 	context "context"
 	model "meta-egg-layout/gen/model"
-	option "meta-egg-layout/gen/repo/option"
+	gormx "meta-egg-layout/pkg/gormx"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -38,7 +38,7 @@ func (m *MockGenderRepo) EXPECT() *MockGenderRepoMockRecorder {
 }
 
 // Count mocks base method.
-func (m *MockGenderRepo) Count(arg0 context.Context, arg1 ...option.Option) (int64, error) {
+func (m *MockGenderRepo) Count(arg0 context.Context, arg1 ...gormx.Option) (int64, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0}
 	for _, a := range arg1 {
@@ -58,7 +58,7 @@ func (mr *MockGenderRepoMockRecorder) Count(arg0 interface{}, arg1 ...interface{
 }
 
 // GetByID mocks base method.
-func (m *MockGenderRepo) GetByID(arg0 context.Context, arg1 uint64, arg2 ...option.Option) (*model.Gender, error) {
+func (m *MockGenderRepo) GetByID(arg0 context.Context, arg1 uint64, arg2 ...gormx.Option) (*model.Gender, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
@@ -78,7 +78,7 @@ func (mr *MockGenderRepoMockRecorder) GetByID(arg0, arg1 interface{}, arg2 ...in
 }
 
 // GetByIDs mocks base method.
-func (m *MockGenderRepo) GetByIDs(arg0 context.Context, arg1 []uint64, arg2 ...option.Option) ([]*model.Gender, error) {
+func (m *MockGenderRepo) GetByIDs(arg0 context.Context, arg1 []uint64, arg2 ...gormx.Option) ([]*model.Gender, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
@@ -126,7 +126,7 @@ func (mr *MockGenderRepoMockRecorder) GetTX(arg0 interface{}) *gomock.Call {
 }
 
 // Gets mocks base method.
-func (m *MockGenderRepo) Gets(arg0 context.Context, arg1 ...option.Option) ([]*model.Gender, error) {
+func (m *MockGenderRepo) Gets(arg0 context.Context, arg1 ...gormx.Option) ([]*model.Gender, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0}
 	for _, a := range arg1 {

@@ -7,7 +7,7 @@ package mock
 import (
 	context "context"
 	model "meta-egg-layout/gen/model"
-	option "meta-egg-layout/gen/repo/option"
+	gormx "meta-egg-layout/pkg/gormx"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -38,7 +38,7 @@ func (m *MockUserRepo) EXPECT() *MockUserRepoMockRecorder {
 }
 
 // Count mocks base method.
-func (m *MockUserRepo) Count(arg0 context.Context, arg1 ...option.Option) (int64, error) {
+func (m *MockUserRepo) Count(arg0 context.Context, arg1 ...gormx.Option) (int64, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0}
 	for _, a := range arg1 {
@@ -86,7 +86,7 @@ func (mr *MockUserRepoMockRecorder) CreateBatch(arg0, arg1 interface{}) *gomock.
 }
 
 // Delete mocks base method.
-func (m *MockUserRepo) Delete(arg0 context.Context, arg1 ...option.Option) (int64, error) {
+func (m *MockUserRepo) Delete(arg0 context.Context, arg1 ...gormx.Option) (int64, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0}
 	for _, a := range arg1 {
@@ -136,7 +136,7 @@ func (mr *MockUserRepoMockRecorder) DeleteByIDs(arg0, arg1 interface{}) *gomock.
 }
 
 // GetByID mocks base method.
-func (m *MockUserRepo) GetByID(arg0 context.Context, arg1 uint64, arg2 ...option.Option) (*model.User, error) {
+func (m *MockUserRepo) GetByID(arg0 context.Context, arg1 uint64, arg2 ...gormx.Option) (*model.User, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
@@ -156,7 +156,7 @@ func (mr *MockUserRepoMockRecorder) GetByID(arg0, arg1 interface{}, arg2 ...inte
 }
 
 // GetByIDs mocks base method.
-func (m *MockUserRepo) GetByIDs(arg0 context.Context, arg1 []uint64, arg2 ...option.Option) ([]*model.User, error) {
+func (m *MockUserRepo) GetByIDs(arg0 context.Context, arg1 []uint64, arg2 ...gormx.Option) ([]*model.User, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
@@ -190,7 +190,7 @@ func (mr *MockUserRepoMockRecorder) GetTX(arg0 interface{}) *gomock.Call {
 }
 
 // Gets mocks base method.
-func (m *MockUserRepo) Gets(arg0 context.Context, arg1 ...option.Option) ([]*model.User, error) {
+func (m *MockUserRepo) Gets(arg0 context.Context, arg1 ...gormx.Option) ([]*model.User, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0}
 	for _, a := range arg1 {
@@ -210,7 +210,7 @@ func (mr *MockUserRepoMockRecorder) Gets(arg0 interface{}, arg1 ...interface{}) 
 }
 
 // Update mocks base method.
-func (m *MockUserRepo) Update(arg0 context.Context, arg1, arg2 map[string]interface{}, arg3 ...option.Option) (int64, error) {
+func (m *MockUserRepo) Update(arg0 context.Context, arg1, arg2 map[string]interface{}, arg3 ...gormx.Option) (int64, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1, arg2}
 	for _, a := range arg3 {

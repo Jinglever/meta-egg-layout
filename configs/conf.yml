@@ -5,6 +5,8 @@ resource:
     type: mysql
     # 数据库连接字符串
     dsn: "<username>:<pwd>@tcp(<host>:<port>)/<database>?charset=utf8mb4&timeout=5s&parseTime=True&loc=Asia%2FShanghai"
+    # 日志级别 info|warn|error|silent
+    log_level: "warn"
   # JWT配置
   jwt:
     # 会话有效时长
