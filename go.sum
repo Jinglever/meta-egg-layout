@@ -44,6 +44,8 @@ github.com/Jinglever/go-file v0.9.2 h1:ibrMSmN3J6lKlo+LAsWFAG9B9pY4xIAc5N9CkD37P
 github.com/Jinglever/go-file v0.9.2/go.mod h1:aWqdJtbAhiBWsXmOpFaRopWkgjxBviDIlXvSwrosV2E=
 github.com/Jinglever/go-jwt v0.9.2 h1:zkyIJs7+EEcR9/DWonPDJTcXy9zaYNpqre5WdrMWn5c=
 github.com/Jinglever/go-jwt v0.9.2/go.mod h1:4XKJDAWsCE6FyiIrQwjWkcPsgfIDFXvzYL2rhbXz7lM=
+github.com/Jinglever/go-pointer v0.9.3 h1:UBS6swJng7wh4HwsmN49uEr2ak3C/sczk4porFd35Tw=
+github.com/Jinglever/go-pointer v0.9.3/go.mod h1:WlyrS9SxH89+UB8mJo9dK5jO30NC1+1jVVc5pb9/diQ=
 github.com/Jinglever/go-string v0.9.3 h1:U80sHXf3hx6hbXCQ1w7mpaOEAxa+XdDCwo3DWA1C7ko=
 github.com/Jinglever/go-string v0.9.3/go.mod h1:OTt9gjDgEIuXlxFsZGRQzVNAq2KsNONA2jObug+HIPM=
 github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc=
@@ -264,8 +266,9 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
-github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
+github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
+github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/subosito/gotenv v1.4.1 h1:jyEFiXpy21Wm81FBN71l9VoMMV8H8jG+qIK3GCpY6Qs=
 github.com/subosito/gotenv v1.4.1/go.mod h1:ayKnFf/c6rvx/2iiLrJUk1e6plDbT3edrFNGqEflhK0=
 github.com/swaggo/swag v1.16.1 h1:fTNRhKstPKxcnoKsytm4sahr8FaYzUcT7i1/3nd/fBg=

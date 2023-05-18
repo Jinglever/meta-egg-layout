@@ -312,9 +312,14 @@ const docTemplate = `{
         "internal_handler_http.ReqCreateUser": {
             "type": "object",
             "required": [
+                "age",
                 "gender"
             ],
             "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
                 "gender": {
                     "description": "性别",
                     "type": "integer",
@@ -330,6 +335,10 @@ const docTemplate = `{
         "internal_handler_http.ReqUpdateUser": {
             "type": "object",
             "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
                 "gender": {
                     "description": "性别",
                     "type": "integer",
@@ -368,6 +377,10 @@ const docTemplate = `{
         "internal_handler_http.UserDetail": {
             "type": "object",
             "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
                 "created_at": {
                     "description": "创建时间",
                     "type": "string"
@@ -382,6 +395,10 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "is_on_job": {
+                    "description": "是否在职",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "用户名 (nullable)",

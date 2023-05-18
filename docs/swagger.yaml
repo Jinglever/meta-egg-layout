@@ -1,6 +1,9 @@
 definitions:
   internal_handler_http.ReqCreateUser:
     properties:
+      age:
+        description: 年龄
+        type: integer
       gender:
         description: 性别
         minimum: 1
@@ -10,10 +13,14 @@ definitions:
         maxLength: 64
         type: string
     required:
+    - age
     - gender
     type: object
   internal_handler_http.ReqUpdateUser:
     properties:
+      age:
+        description: 年龄
+        type: integer
       gender:
         description: 性别
         minimum: 1
@@ -40,6 +47,9 @@ definitions:
     type: object
   internal_handler_http.UserDetail:
     properties:
+      age:
+        description: 年龄
+        type: integer
       created_at:
         description: 创建时间
         type: string
@@ -51,6 +61,9 @@ definitions:
         type: integer
       id:
         type: integer
+      is_on_job:
+        description: 是否在职
+        type: boolean
       name:
         description: 用户名 (nullable)
         type: string

@@ -174,6 +174,10 @@ func (m *GetUserDetailResponse) validate(all bool) error {
 
 	// no validation rules for Gender
 
+	// no validation rules for Age
+
+	// no validation rules for IsOnJob
+
 	// no validation rules for CreatedAt
 
 	// no validation rules for UpdatedAt
