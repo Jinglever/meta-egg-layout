@@ -3,7 +3,7 @@
 // CAREFULLY EDIT.
 // Version: v1.4.1-IE
 // Author: meta-egg
-// Generated at: 2023-05-18 18:11
+// Generated at: 2023-05-18 22:33
 
 package biz
 
@@ -44,13 +44,17 @@ func (u *BizService) GetUserByID(ctx context.Context, id uint64) (*model.User, e
 }
 
 type UserFilterOption struct {
-	Gender *uint64
+	Gender  *uint64
+	IsOnJob *bool
 }
 
 func (o *UserFilterOption) GetRepoOptions() []gormx.Option {
 	ops := make([]gormx.Option, 0)
 	if o.Gender != nil {
 		ops = append(ops, gormx.Where(model.ColUserGender+" = ?", *o.Gender))
+	}
+	if o.IsOnJob != nil {
+		ops = append(ops, gormx.Where(model.ColUserIsOnJob+" = ?", *o.IsOnJob))
 	}
 
 	return ops
@@ -97,9 +101,10 @@ func (u *BizService) GetUserList(ctx context.Context, opt *UserListOption) ([]*m
 }
 
 type UserSetOption struct {
-	Name   *string
-	Gender *uint64
-	Age    *uint8
+	Name    *string
+	Gender  *uint64
+	Age     *uint8
+	IsOnJob *bool
 }
 
 type UserUpdateOption struct {
@@ -118,6 +123,9 @@ func (u *BizService) UpdateUserByID(ctx context.Context, id uint64, opt *UserUpd
 		}
 		if opt.Set.Age != nil {
 			setCVs[model.ColUserAge] = *opt.Set.Age
+		}
+		if opt.Set.IsOnJob != nil {
+			setCVs[model.ColUserIsOnJob] = *opt.Set.IsOnJob
 		}
 	}
 

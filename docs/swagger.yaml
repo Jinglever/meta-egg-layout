@@ -8,6 +8,9 @@ definitions:
         description: 性别
         minimum: 1
         type: integer
+      is_on_job:
+        description: 是否在职
+        type: boolean
       name:
         description: 用户名
         maxLength: 64
@@ -15,6 +18,7 @@ definitions:
     required:
     - age
     - gender
+    - is_on_job
     type: object
   internal_handler_http.ReqUpdateUser:
     properties:
@@ -25,6 +29,9 @@ definitions:
         description: 性别
         minimum: 1
         type: integer
+      is_on_job:
+        description: 是否在职
+        type: boolean
       name:
         description: 用户名
         maxLength: 64
@@ -176,6 +183,10 @@ paths:
         in: query
         name: gender
         type: integer
+      - description: 是否在职
+        in: query
+        name: is_on_job
+        type: boolean
       - description: '排序字段, 可选: id'
         in: query
         name: order_by

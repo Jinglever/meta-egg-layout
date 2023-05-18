@@ -3,7 +3,7 @@
 // CAREFULLY EDIT.
 // Version: v1.4.1-IE
 // Author: meta-egg
-// Generated at: 2023-05-18 18:11
+// Generated at: 2023-05-18 22:33
 
 package handler
 
@@ -46,9 +46,10 @@ func newUserDetailFromModel(mUser *model.User) UserDetail {
 }
 
 type ReqCreateUser struct {
-	Name   *string `json:"name" binding:"omitempty,max=64"` // 用户名
-	Gender uint64  `json:"gender" binding:"required,gte=1"` // 性别
-	Age    uint8   `json:"age" binding:"required"`          // 年龄
+	Name    *string `json:"name" binding:"omitempty,max=64"` // 用户名
+	Gender  uint64  `json:"gender" binding:"required,gte=1"` // 性别
+	Age     uint8   `json:"age" binding:"required"`          // 年龄
+	IsOnJob bool    `json:"is_on_job" binding:"required"`    // 是否在职
 }
 
 //	@Id			CreateUser
@@ -71,9 +72,10 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	}
 
 	mUser := &model.User{
-		Name:   req.Name,
-		Gender: req.Gender,
-		Age:    req.Age,
+		Name:    req.Name,
+		Gender:  req.Gender,
+		Age:     req.Age,
+		IsOnJob: req.IsOnJob,
 	}
 	err = h.BizService.CreateUser(c.Request.Context(), mUser)
 	if err != nil {
@@ -130,7 +132,8 @@ type ReqGetUserList struct {
 	Page     int `form:"page" binding:"required,gte=1"`      // 页码, 从1开始
 	PageSize int `form:"page_size" binding:"required,gte=1"` // 每页数量, 要求大于0
 	// 筛选条件
-	Gender *uint64 `form:"gender" binding:"omitempty,gte=1"` // 性别
+	Gender  *uint64 `form:"gender" binding:"omitempty,gte=1"` // 性别
+	IsOnJob *bool   `form:"is_on_job" binding:"omitempty"`    // 是否在职
 	// 排序条件
 	OrderBy   *string           `form:"order_by" binding:"omitempty,oneof=id"`         // 排序字段,可选:id
 	OrderType *option.OrderType `form:"order_type" binding:"omitempty,oneof=asc desc"` // 排序类型,默认desc
@@ -146,6 +149,7 @@ type ReqGetUserList struct {
 //	@Param		page			query		int		true	"页码, 从1开始"
 //	@Param		page_size		query		int		true	"每页数量, 要求大于0"
 //	@Param		gender			query		uint64	false	"性别"
+//	@Param		is_on_job		query		bool	false	"是否在职"
 //	@Param		order_by		query		string	false	"排序字段, 可选: id"
 //	@Param		order_type		query		string	false	"排序类型,默认desc"
 //	@Success	200				{object}	RspData{data=UserList}
@@ -164,7 +168,8 @@ func (h *Handler) GetUserList(c *gin.Context) {
 			PageSize: req.PageSize,
 		},
 		Filter: &biz.UserFilterOption{
-			Gender: req.Gender,
+			Gender:  req.Gender,
+			IsOnJob: req.IsOnJob,
 		},
 		Order: &option.OrderOption{
 			OrderBy:   req.OrderBy,
@@ -193,9 +198,10 @@ func (h *Handler) GetUserList(c *gin.Context) {
 }
 
 type ReqUpdateUser struct {
-	Name   *string `json:"name" binding:"omitempty,max=64"`  // 用户名
-	Gender *uint64 `json:"gender" binding:"omitempty,gte=1"` // 性别
-	Age    *uint8  `json:"age" binding:"omitempty"`          // 年龄
+	Name    *string `json:"name" binding:"omitempty,max=64"`  // 用户名
+	Gender  *uint64 `json:"gender" binding:"omitempty,gte=1"` // 性别
+	Age     *uint8  `json:"age" binding:"omitempty"`          // 年龄
+	IsOnJob *bool   `json:"is_on_job" binding:"omitempty"`    // 是否在职
 }
 
 //	@Id			UpdateUser
@@ -220,9 +226,10 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 	}
 	opt := &biz.UserUpdateOption{
 		Set: &biz.UserSetOption{
-			Name:   req.Name,
-			Gender: req.Gender,
-			Age:    req.Age,
+			Name:    req.Name,
+			Gender:  req.Gender,
+			Age:     req.Age,
+			IsOnJob: req.IsOnJob,
 		},
 	}
 	err = h.BizService.UpdateUserByID(c.Request.Context(), id, opt)

@@ -2,11 +2,13 @@ package integrate
 
 import (
 	"context"
+	"fmt"
 	"meta-egg-layout/gen/model"
 	"meta-egg-layout/internal/biz"
 	"testing"
 
 	jgptr "github.com/Jinglever/go-pointer"
+	jgstr "github.com/Jinglever/go-string"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -30,12 +32,25 @@ func TestGetUser(t *testing.T) {
 	assert.Equal(t, "test", *user.Name)
 }
 
+func TestGetUsers(t *testing.T) {
+	svc := NewBizService(GetResource())
+	ctx := context.TODO()
+	users, _, err := svc.GetUserList(ctx, &biz.UserListOption{
+		Filter: &biz.UserFilterOption{
+			IsOnJob: jgptr.NewBool(true),
+		},
+	})
+	assert.NoError(t, err)
+	fmt.Println(jgstr.JsonEncode(users))
+}
+
 func TestUpdateUser(t *testing.T) {
 	svc := NewBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.UpdateUserByID(ctx, 1, &biz.UserUpdateOption{
 		Set: &biz.UserSetOption{
-			Age: jgptr.NewUint8(33),
+			Age:     jgptr.NewUint8(33),
+			IsOnJob: jgptr.NewBool(true),
 		},
 	})
 	assert.NoError(t, err)

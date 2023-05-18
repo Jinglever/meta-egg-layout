@@ -58,6 +58,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "boolean",
+                        "description": "是否在职",
+                        "name": "is_on_job",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "排序字段, 可选: id",
                         "name": "order_by",
@@ -313,7 +319,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "age",
-                "gender"
+                "gender",
+                "is_on_job"
             ],
             "properties": {
                 "age": {
@@ -324,6 +331,10 @@ const docTemplate = `{
                     "description": "性别",
                     "type": "integer",
                     "minimum": 1
+                },
+                "is_on_job": {
+                    "description": "是否在职",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "用户名",
@@ -343,6 +354,10 @@ const docTemplate = `{
                     "description": "性别",
                     "type": "integer",
                     "minimum": 1
+                },
+                "is_on_job": {
+                    "description": "是否在职",
+                    "type": "boolean"
                 },
                 "name": {
                     "description": "用户名",
