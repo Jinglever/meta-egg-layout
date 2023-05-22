@@ -1,3 +1,7 @@
+log:
+  # 日志级别 debug|info|warn|error|fatal
+  level: "info" 
+
 resource:
   # 数据库配置
   db:
