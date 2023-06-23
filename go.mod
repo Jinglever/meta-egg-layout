@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/Jinglever/go-config v0.9.3
 	github.com/Jinglever/go-jwt v0.9.2
-	github.com/Jinglever/go-pointer v0.9.3
+	github.com/Jinglever/go-pointer v0.9.4
 	github.com/Jinglever/go-string v0.9.3
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/gin-gonic/gin v1.9.0
