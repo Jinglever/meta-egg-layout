@@ -49,7 +49,7 @@ collate: 排序规则
 comment: 表描述
 handler: 是否生成该表的handler
 -->
-<!ELEMENT table (column+, index*, unique*)>
+<!ELEMENT table (column+, index*, unique*, fulltext*)>
 <!ATTLIST table
     name CDATA #REQUIRED
     type (META|DATA|BR|RL|RI) #REQUIRED
@@ -78,6 +78,7 @@ required: 是否Not Null
 primary_key: 是否主键，限一个
 index: 是否对字段加索引
 unique: 是否对字段加唯一索引
+fulltext: 是否对字段加全文索引(ngram) (仅对CHAR/VARCHAR/TEXT类型的字段有用) (目前仅对MySQL有用)
 comment: 字段描述
 insert_default: 在插入记录时该字段的默认值
 ri_key: 是否倒排索引的key
@@ -98,6 +99,7 @@ alter: 是否允许修改
     primary_key (true|false) "false"
     index (true|false) "false"
     unique (true|false) "false"
+    fulltext (true|false) "false"
     comment CDATA #IMPLIED
     insert_default CDATA #IMPLIED
     ri_key (true|false) "false"
@@ -111,6 +113,8 @@ alter: 是否允许修改
 <!ELEMENT index (index_column, index_column+)>
 <!-- unique: 联合唯一索引，至少要有两个字段以上-->
 <!ELEMENT unique (index_column, index_column+)>
+<!-- fulltext: 联合全文搜索索引，至少要有两个字段以上-->
+<!ELEMENT fulltext (index_column, index_column+)>
 <!-- index_column: 联合索引字段
 name: 字段名
 -->
