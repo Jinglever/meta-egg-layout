@@ -4,21 +4,20 @@
 //go:build !wireinject
 // +build !wireinject
 
-package server
+package handler
 
 import (
 	"meta-egg-layout/internal/biz"
 	"meta-egg-layout/internal/common/resource"
-	"meta-egg-layout/internal/handler/grpc"
 	"meta-egg-layout/internal/repo"
 )
 
 // Injectors from wire.go:
 
-func NewHandler(rsrc *resource.Resource) *handler.Handler {
+func WireHandler(rsrc *resource.Resource) *Handler {
 	userRepo := repo.NewUserRepo(rsrc)
 	genderRepo := repo.NewGenderRepo(rsrc)
 	bizService := biz.NewBizService(rsrc, userRepo, genderRepo)
-	handlerHandler := handler.NewHandler(rsrc, bizService)
-	return handlerHandler
+	handler := NewHandler(rsrc, bizService)
+	return handler
 }

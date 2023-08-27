@@ -4,19 +4,18 @@
 //go:build !wireinject
 // +build !wireinject
 
-package integrate
+package biz
 
 import (
-	"meta-egg-layout/internal/biz"
 	"meta-egg-layout/internal/common/resource"
 	"meta-egg-layout/internal/repo"
 )
 
 // Injectors from wire.go:
 
-func NewBizService(rsrc *resource.Resource) *biz.BizService {
+func WireBizService(rsrc *resource.Resource) *BizService {
 	userRepo := repo.NewUserRepo(rsrc)
 	genderRepo := repo.NewGenderRepo(rsrc)
-	bizService := biz.NewBizService(rsrc, userRepo, genderRepo)
+	bizService := NewBizService(rsrc, userRepo, genderRepo)
 	return bizService
 }

@@ -13,7 +13,7 @@ import (
 )
 
 func TestCreateUser(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.CreateUser(ctx, &model.User{
 		Name:    jgptr.NewString("test"),
@@ -25,7 +25,7 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestGetUser(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	user, err := svc.GetUserByID(ctx, 1)
 	assert.NoError(t, err)
@@ -33,7 +33,7 @@ func TestGetUser(t *testing.T) {
 }
 
 func TestGetUsers(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	users, _, err := svc.GetUserList(ctx, &biz.UserListOption{
 		Filter: &biz.UserFilterOption{
@@ -45,7 +45,7 @@ func TestGetUsers(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.UpdateUserByID(ctx, 1, &biz.UserUpdateOption{
 		Set: &biz.UserSetOption{
@@ -57,14 +57,14 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.DeleteUserByID(ctx, 1)
 	assert.NoError(t, err)
 }
 
 func TestCreateUserTX(t *testing.T) {
-	svc := NewBizService(GetResource())
+	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.Resource.DB.Transaction(ctx, func(txCtx context.Context) error {
 		err := svc.CreateUser(txCtx, &model.User{
