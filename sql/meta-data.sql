@@ -1,6 +1,6 @@
 -- gender
-INSERT INTO `gender` (`desc`,`deleted_at`,`id`,`sematic`) VALUES
-('男', NULL, '1', 'MALE'),
-('女', NULL, '2', 'FEMALE'),
-('未知', NULL, '3', 'UNKNOWN');
+INSERT INTO `gender` (`deleted_at`,`desc`,`id`,`sematic`) VALUES
+(NULL, '男', '1', 'MALE'),
+(NULL, '女', '2', 'FEMALE'),
+(NULL, '未知', '3', 'UNKNOWN');
 

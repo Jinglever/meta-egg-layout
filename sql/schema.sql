@@ -13,6 +13,7 @@ CREATE TABLE `user` (
   `updated_at` DATETIME NOT NULL COMMENT '更新时间',
   `deleted_by` BIGINT UNSIGNED COMMENT '删除者',
   `deleted_at` DATETIME COMMENT '删除时间',
+  UNIQUE (`name`),
   INDEX (`deleted_at`),
   INDEX (`age`, `is_on_job`),
   FOREIGN KEY (`gender`) REFERENCES `gender` (`id`),
@@ -22,7 +23,7 @@ CREATE TABLE `user` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户';
 CREATE TABLE `gender` (
   `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `sematic` CHAR(8) NOT NULL COMMENT '语义',
+  `sematic` VARCHAR(8) NOT NULL COMMENT '语义',
   `desc` VARCHAR(64) COMMENT '描述',
   `deleted_at` DATETIME COMMENT '删除时间',
   INDEX (`deleted_at`)

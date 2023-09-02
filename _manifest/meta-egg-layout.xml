@@ -6,7 +6,7 @@
         <!-- 实体表示例 -->
         <table name="user" type="DATA" comment="用户" handler="true">
             <column name="id" type="_ID" order="true" list="true" />
-            <column name="name" type="VARCHAR" length="64" comment="用户名" list="true" alter="true" />
+            <column name="name" type="VARCHAR" length="64" comment="用户名" unique="true" list="true" alter="true" />
             <column name="gender" type="_FID" required="true" comment="性别" filter="true" list="true" alter="true">
                 <foreign_key table="gender" />
             </column>
@@ -33,8 +33,8 @@
         <!-- 元数据表示例 -->
         <table name="gender" type="META" comment="性别">
             <column name="id" type="_ID" />
-            <column name="sematic" type="_SMT" length="8" required="true" comment="语义" />
-            <column name="desc" type="VARCHAR" length="64" required="false" comment="描述" />
+            <column name="sematic" type="_SMT2" length="8" required="true" comment="语义" />
+            <column name="desc" type="_DESC" length="64" required="false" comment="描述" />
             <column name="deleted_at" type="_TIME_DELETE" comment="删除时间" />
         </table>
     </database>
