@@ -319,6 +319,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "age",
+                "birthday",
                 "gender",
                 "is_on_job"
             ],
@@ -326,6 +327,10 @@ const docTemplate = `{
                 "age": {
                     "description": "年龄",
                     "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日 格式: 2006-01-02",
+                    "type": "string"
                 },
                 "gender": {
                     "description": "性别",
@@ -349,6 +354,10 @@ const docTemplate = `{
                 "age": {
                     "description": "年龄",
                     "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日 格式: 2006-01-02",
+                    "type": "string"
                 },
                 "gender": {
                     "description": "性别",
@@ -395,6 +404,10 @@ const docTemplate = `{
                 "age": {
                     "description": "年龄",
                     "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日",
+                    "type": "string"
                 },
                 "created_at": {
                     "description": "创建时间",

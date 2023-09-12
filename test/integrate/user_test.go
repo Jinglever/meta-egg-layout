@@ -3,7 +3,6 @@ package integrate
 import (
 	"context"
 	"fmt"
-	"meta-egg-layout/gen/model"
 	"meta-egg-layout/internal/biz"
 	"testing"
 
@@ -15,7 +14,7 @@ import (
 func TestCreateUser(t *testing.T) {
 	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
-	err := svc.CreateUser(ctx, &model.User{
+	err := svc.CreateUser(ctx, &biz.UserBO{
 		Name:    jgptr.NewString("test"),
 		Gender:  1,
 		Age:     32,
@@ -47,11 +46,9 @@ func TestGetUsers(t *testing.T) {
 func TestUpdateUser(t *testing.T) {
 	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
-	err := svc.UpdateUserByID(ctx, 1, &biz.UserUpdateOption{
-		Set: &biz.UserSetOption{
-			Age:     jgptr.NewUint8(33),
-			IsOnJob: jgptr.NewBool(true),
-		},
+	err := svc.UpdateUserByID(ctx, 1, &biz.UserSetOption{
+		Age:     jgptr.NewUint8(33),
+		IsOnJob: jgptr.NewBool(true),
 	})
 	assert.NoError(t, err)
 }
@@ -67,7 +64,7 @@ func TestCreateUserTX(t *testing.T) {
 	svc := biz.WireBizService(GetResource())
 	ctx := context.TODO()
 	err := svc.Resource.DB.Transaction(ctx, func(txCtx context.Context) error {
-		err := svc.CreateUser(txCtx, &model.User{
+		err := svc.CreateUser(txCtx, &biz.UserBO{
 			Name:    jgptr.NewString("test"),
 			Gender:  1,
 			Age:     32,

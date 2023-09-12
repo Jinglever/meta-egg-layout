@@ -12,6 +12,7 @@
             </column>
             <column name="age" type="TINYINT" unsigned="true" required="true" comment="年龄" alter="true" />
             <column name="is_on_job" type="_BOOL" required="true" insert_default="0" comment="是否在职" alter="true" filter="true" />
+            <column name="birthday" type="DATE" required="true" comment="生日" alter="true" />
             <column name="created_by" type="_ME_CREATE" required="false" comment="创建者">
                 <foreign_key table="user" />
             </column>
@@ -26,8 +27,8 @@
             <column name="deleted_at" type="_TIME_DELETE" comment="删除时间" />
 
             <index>
-                <index_column name="age" />
                 <index_column name="is_on_job" />
+                <index_column name="age" />
             </index>
         </table>
         <!-- 元数据表示例 -->

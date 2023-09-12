@@ -5,6 +5,7 @@ import (
 	"meta-egg-layout/gen/model"
 	"testing"
 
+	"meta-egg-layout/internal/biz"
 	repomock "meta-egg-layout/internal/repo/mock"
 	gormxmock "meta-egg-layout/pkg/gormx/mock"
 
@@ -30,17 +31,17 @@ func TestCreateUser(t *testing.T) {
 			return nil
 		})
 	ctx := context.TODO()
-	mUser := &model.User{
+	userBO := &biz.UserBO{
 		Name:    jgptr.NewString("test"),
 		Gender:  1,
 		Age:     32,
 		IsOnJob: true,
 	}
 	err := svc.Resource.DB.Transaction(ctx, func(ctx context.Context) error {
-		err := svc.CreateUser(ctx, mUser)
+		err := svc.CreateUser(ctx, userBO)
 		assert.NoError(t, err)
 		return nil
 	})
 	assert.NoError(t, err)
-	assert.Equal(t, uint64(1), mUser.ID)
+	assert.Equal(t, uint64(1), userBO.ID)
 }
