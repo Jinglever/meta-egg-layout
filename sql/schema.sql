@@ -7,7 +7,7 @@ CREATE TABLE `user` (
   `gender` BIGINT UNSIGNED NOT NULL COMMENT '性别',
   `age` TINYINT UNSIGNED NOT NULL COMMENT '年龄',
   `is_on_job` TINYINT NOT NULL DEFAULT '0' COMMENT '是否在职',
-  `birthday` DATE NOT NULL COMMENT '生日',
+  `birthday` DATE COMMENT '生日',
   `created_by` BIGINT UNSIGNED COMMENT '创建者',
   `created_at` DATETIME NOT NULL COMMENT '创建时间',
   `updated_by` BIGINT UNSIGNED COMMENT '更新者',

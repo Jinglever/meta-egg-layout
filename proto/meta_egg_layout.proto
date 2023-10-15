@@ -17,7 +17,7 @@ message UserDetail {
     uint64 gender = 3; // 性别
     uint32 age = 4; // 年龄
     bool is_on_job = 5; // 是否在职
-    string birthday = 6; // 生日
+    optional string birthday = 6; // 生日
     optional uint64 created_by = 7; // 创建者
     string created_at = 8; // 创建时间
     optional uint64 updated_by = 9; // 更新者
@@ -35,7 +35,7 @@ message CreateUserRequest {
     // 是否在职
     bool is_on_job = 4;
     // 生日 格式: 2006-01-02
-    string birthday = 5 [(validate.rules).string = {
+    optional string birthday = 5 [(validate.rules).string = {
         pattern: "^\\d{4}-\\d{2}-\\d{2}$",
     }];
 }
@@ -56,7 +56,7 @@ message UserListInfo {
 // GetUserListRequest 获取用户列表请求
 message GetUserListRequest {
     // 分页请求（可选, 不传则不分页）
-    optional Pagination Pagination = 1;
+    optional Pagination pagination = 1;
     // 筛选项: 性别 (可选)
     optional uint64 gender = 2 [(validate.rules).uint64 = {gte: 1}];
     // 筛选项: 是否在职 (可选)

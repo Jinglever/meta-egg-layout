@@ -319,7 +319,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "age",
-                "birthday",
                 "gender",
                 "is_on_job"
             ],
@@ -406,7 +405,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "birthday": {
-                    "description": "生日",
+                    "description": "生日 (nullable)",
                     "type": "string"
                 },
                 "created_at": {

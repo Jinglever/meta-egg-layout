@@ -186,14 +186,16 @@ func (m *UserDetail) validate(all bool) error {
 
 	// no validation rules for IsOnJob
 
-	// no validation rules for Birthday
-
 	// no validation rules for CreatedAt
 
 	// no validation rules for UpdatedAt
 
 	if m.Name != nil {
 		// no validation rules for Name
+	}
+
+	if m.Birthday != nil {
+		// no validation rules for Birthday
 	}
 
 	if m.CreatedBy != nil {
@@ -318,23 +320,27 @@ func (m *CreateUserRequest) validate(all bool) error {
 
 	// no validation rules for IsOnJob
 
-	if !_CreateUserRequest_Birthday_Pattern.MatchString(m.GetBirthday()) {
-		err := CreateUserRequestValidationError{
-			field:  "Birthday",
-			reason: "value does not match regex pattern \"^\\\\d{4}-\\\\d{2}-\\\\d{2}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if m.Name != nil {
 
 		if utf8.RuneCountInString(m.GetName()) > 64 {
 			err := CreateUserRequestValidationError{
 				field:  "Name",
 				reason: "value length must be at most 64 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Birthday != nil {
+
+		if !_CreateUserRequest_Birthday_Pattern.MatchString(m.GetBirthday()) {
+			err := CreateUserRequestValidationError{
+				field:  "Birthday",
+				reason: "value does not match regex pattern \"^\\\\d{4}-\\\\d{2}-\\\\d{2}$\"",
 			}
 			if !all {
 				return err
