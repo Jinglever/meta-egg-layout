@@ -89,6 +89,7 @@ unique: 是否对字段加唯一索引
 fulltext: 是否对字段加全文索引(ngram) (仅对CHAR/VARCHAR/TEXT类型的字段有用) (目前仅对MySQL有用)
 comment: 字段描述
 insert_default: 在插入记录时该字段的默认值
+default_empty: 在插入记录时该字段的默认值为空字符串 (仅对CHAR/VARCHAR/TEXT类型的字段有用)
 ri_key: 是否倒排索引的key
 hidden: 在标准handler里是否对前端隐藏
 filter: 是否支持filter
@@ -110,6 +111,7 @@ alter: 是否允许修改
     fulltext (true|false) "false"
     comment CDATA #IMPLIED
     insert_default CDATA #IMPLIED
+    default_empty (true|false) "false"
     ri_key (true|false) "false"
     hidden (true|false) "false"
     filter (true|false) "false"
