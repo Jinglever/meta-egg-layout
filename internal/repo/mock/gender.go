@@ -97,18 +97,18 @@ func (mr *MockGenderRepoMockRecorder) GetByIDs(arg0, arg1 interface{}, arg2 ...i
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByIDs", reflect.TypeOf((*MockGenderRepo)(nil).GetByIDs), varargs...)
 }
 
-// GetSematicByID mocks base method.
-func (m *MockGenderRepo) GetSematicByID(arg0 uint64) string {
+// GetSemanticByID mocks base method.
+func (m *MockGenderRepo) GetSemanticByID(arg0 uint64) string {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSematicByID", arg0)
+	ret := m.ctrl.Call(m, "GetSemanticByID", arg0)
 	ret0, _ := ret[0].(string)
 	return ret0
 }
 
-// GetSematicByID indicates an expected call of GetSematicByID.
-func (mr *MockGenderRepoMockRecorder) GetSematicByID(arg0 interface{}) *gomock.Call {
+// GetSemanticByID indicates an expected call of GetSemanticByID.
+func (mr *MockGenderRepoMockRecorder) GetSemanticByID(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSematicByID", reflect.TypeOf((*MockGenderRepo)(nil).GetSematicByID), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSemanticByID", reflect.TypeOf((*MockGenderRepo)(nil).GetSemanticByID), arg0)
 }
 
 // GetTX mocks base method.

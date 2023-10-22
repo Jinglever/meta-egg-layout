@@ -63,8 +63,8 @@ name: 字段名
 type: 字段类型
     _ID: 默认的表主键类型 bigint(20, unsigned) primary auto_increment not null
     _FID: 默认的外链类型 bigint(20, unsigned)
-    _SMT: META表的语义字段 CHAR(16)，可自定义长度
-    _SMT2: META表的语义字段 VARCHAR(16)，可自定义长度
+    _SMT: META表的语义字段 CHAR(16)，可自定义长度 (deprecated)
+    _SMT2: META表的语义字段 VARCHAR(16)，可自定义长度 (推荐)
     _DESC: META表的描述字段 VARCHAR(128)，可自定义长度
     _BOOL: MySQL/TiDB:布尔类型 TINYINT(1) | PostgreSQL: BOOL
     _ME_CREATE: 创建者
