@@ -21,7 +21,6 @@ definitions:
     required:
     - age
     - gender
-    - is_on_job
     type: object
   internal_handler_http.ReqUpdateUser:
     properties:

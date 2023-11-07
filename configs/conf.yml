@@ -11,6 +11,15 @@ resource:
     dsn: "<username>:<pwd>@tcp(<host>:<port>)/<database>?charset=utf8mb4&timeout=5s&parseTime=True&loc=Asia%2FShanghai"
     # 日志级别 info|warn|error|silent
     log_level: "warn"
+    # 最大连接数 <=0表示无限制
+    max_open: 0
+    # 最大空闲连接数 <=0表示不保留空闲连接 默认值: 2
+    # 如果max_idle>max_open且max_open>0则max_idle=max_open
+    max_idle: 2
+    # 最大连接存活时 <=0代表无限制 格式如: 1m 代表1分钟
+    max_lifetime: 0
+    # 最大空闲时间 <=0代表无限制 格式如: 1m 代表1分钟
+    max_idle_time: 0
   # JWT配置
   jwt:
     # 会话有效时长

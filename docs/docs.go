@@ -319,8 +319,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "age",
-                "gender",
-                "is_on_job"
+                "gender"
             ],
             "properties": {
                 "age": {
