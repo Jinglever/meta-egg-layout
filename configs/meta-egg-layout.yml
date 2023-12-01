@@ -7,8 +7,18 @@ resource:
   db:
     # 数据库类型, 可选值: mysql | postgres
     type: mysql
-    # 数据库连接字符串
-    dsn: "<username>:<pwd>@tcp(<host>:<port>)/<database>?charset=utf8mb4&timeout=5s&parseTime=True&loc=Asia%2FShanghai"
+    # 数据库host
+    host: "<host>"
+    # 数据库端口
+    port: "<port>"
+    # 数据库用户名
+    user: "<username>"
+    # 数据库密码
+    password: "<password>"
+    # 数据库名
+    database: "<database>"
+    # 时区
+    timezone: "Asia/Shanghai"
     # 日志级别 info|warn|error|silent
     log_level: "warn"
     # 最大连接数 <=0表示无限制

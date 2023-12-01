@@ -95,7 +95,12 @@ clear:
 .PHONY: run
 # run binary
 run:
-	./build/bin/meta-egg-layout -config ./configs/conf-local.yml
+	./build/bin/meta-egg-layout -config ./configs/meta-egg-layout-local.yml
+
+.PHONY: test
+# go test
+test:
+	go test $(shell go list ./... | grep internal)	
 
 .PHONY: image
 # build docker image
