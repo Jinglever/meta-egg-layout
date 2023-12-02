@@ -17,6 +17,6 @@ USER appuser
 
 WORKDIR /app
 
-COPY configs/conf.yml /app/configs/conf.yml
+COPY configs/meta-egg-layout.yml /app/configs/meta-egg-layout.yml
 COPY --from=build-env /app/build/bin/* /app/
 CMD ["./meta-egg-layout"]
