@@ -8,13 +8,19 @@ DOCKER_PERMISSION := $(shell [ ! -w /var/run/docker.sock ] && echo "NO")
 ifeq ($(DOCKER_PERMISSION), NO)
 	DOCKER = sudo docker
 endif
-IMAGE_PREFIX=<your-registry>/meta-egg-layout
+IMAGE_NAME=<your-registry>/meta-egg-layout
 
-GIT_TAG    = $(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)
-GIT_BRANCH = $(shell git symbolic-ref --short HEAD)
-GIT_HASH  = $(shell git rev-parse --short=7 HEAD)
+# From gitlab CI
+CI_COMMIT_REF_NAME ?= ""
+CI_COMMIT_SHORT_SHA ?= ""
+PIPE_DATE ?= $(shell date +%Y%m%d)
+
+GIT_TAG    = $(if $(filter-out "",${CI_COMMIT_REF_NAME}),${CI_COMMIT_REF_NAME},$(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null || echo ""))
+GIT_BRANCH = $(shell git symbolic-ref --short HEAD || echo "")
+GIT_HASH  = $(if $(filter-out "",${CI_COMMIT_SHORT_SHA}),${CI_COMMIT_SHORT_SHA},$(shell git rev-parse --short=8 HEAD || echo ""))
+
 # if GIT_TAG is empty, use git branch and git commit hash as version
-VERSION = $(if ${GIT_TAG},${GIT_TAG},${GIT_BRANCH}-${GIT_HASH})
+VERSION = $(if $(filter-out "",${GIT_TAG}),${GIT_TAG}-${PIPE_DATE}-${GIT_HASH},${GIT_BRANCH}-${PIPE_DATE}-${GIT_HASH})
 
 LDFLAGS += -X "${GOMODULE}/pkg/version.BuildTS=$(shell date -u '+%Y-%m-%d %I:%M:%S')"
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitHash=${GIT_HASH}"
@@ -22,6 +28,7 @@ LDFLAGS += -X "${GOMODULE}/pkg/version.GitBranch=${GIT_BRANCH}"
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitTag=${GIT_TAG}"
 LDFLAGS += -X "${GOMODULE}/pkg/version.GitDirty=$(shell test -n "`git status --porcelain`" && echo "true")"
 LDFLAGS += -X "${GOMODULE}/pkg/version.Debug=$(shell if [ ${debug} -eq 1 ]; then echo "true"; fi)"
+LDFLAGS += -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn
 
 ifeq ($(debug), 1)
 	GC_FLAGS:=-gcflags "all=-N -l"
@@ -72,7 +79,7 @@ generate:
 	go get -u gorm.io/gorm
 	go get -u gorm.io/driver/postgres
 	go get -u gorm.io/driver/mysql
-	GOFLAGS=-mod=mod go generate ./...
+	GOFLAGS=-mod=mod GOLANG_PROTOBUF_REGISTRATION_CONFLICT=warn go generate ./...
 	go mod tidy
 
 .PHONY: vet
@@ -106,13 +113,19 @@ test:
 # build docker image
 image:
 	go mod vendor
-	docker build -f build/package/Dockerfile -t ${IMAGE_PREFIX}:${VERSION} .
+	docker build \
+	  --build-arg ci_commit_ref_name=${CI_COMMIT_REF_NAME} \
+	  --build-arg ci_commit_short_sha=${CI_COMMIT_SHORT_SHA} \
+	  --build-arg pipe_date=${PIPE_DATE} \
+	  --no-cache --network=host \
+	  -f build/package/Dockerfile \
+	  -t ${IMAGE_NAME}:${VERSION} .
 	rm -rf vendor
 
 .PHONY: push
 # push docker image
 push:
-	docker push ${IMAGE_PREFIX}:${VERSION}
+	docker push ${IMAGE_NAME}:${VERSION}
 
 # show help
 help:

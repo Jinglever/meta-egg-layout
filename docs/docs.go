@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/users": {
+        "/api/v1/users": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -160,7 +160,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users/{id}": {
+        "/api/v1/users/{id}": {
             "get": {
                 "consumes": [
                     "application/json"

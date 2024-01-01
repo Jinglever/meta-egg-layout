@@ -30,8 +30,8 @@ resource:
     max_lifetime: 0
     # 最大空闲时间 <=0代表无限制 格式如: 1m 代表1分钟
     max_idle_time: 0
-  # JWT配置
-  jwt:
+  # access_token JWT配置
+  access_token:
     # 会话有效时长
     max_age: 1h
     # HS256相关
@@ -43,14 +43,20 @@ http_server:
   address: ":8080"
   # HTTP服务读取请求头超时时间
   read_header_timeout: 1s
-  # 是否验证JWT签名, 为false时, 会仅解析JWT, 不会验证JWT签名
-  verify_jwt: true
+  # http接口是否返回错误详情
+  return_error_detail: false
+  # 是否验证access token, 为false时, 会仅解析JWT, 不会验证JWT签名
+  verify_access_token: true
+
 
 grpc_server:
   # GRPC服务监听地址
   address: ":8081"
-  # 是否验证JWT签名, 为false时, 会仅解析JWT, 不会验证JWT签名
-  verify_jwt: true
+  # http接口是否返回错误详情
+  return_error_detail: false
+  # 是否验证access token, 为false时, 会仅解析JWT, 不会验证JWT签名
+  verify_access_token: true
+
 
 monitor_server:
   # 监控服务监听地址, 如 ":8082"

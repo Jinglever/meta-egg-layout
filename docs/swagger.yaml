@@ -166,7 +166,7 @@ info:
   title: meta-egg-layout
   version: xxx
 paths:
-  /v1/users:
+  /api/v1/users:
     get:
       consumes:
       - application/json
@@ -257,7 +257,7 @@ paths:
       summary: 创建用户
       tags:
       - 用户
-  /v1/users/{id}:
+  /api/v1/users/{id}:
     delete:
       consumes:
       - application/json

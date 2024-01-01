@@ -7,6 +7,7 @@ package mock
 import (
 	context "context"
 	model "meta-egg-layout/gen/model"
+	option "meta-egg-layout/internal/repo/option"
 	gormx "meta-egg-layout/pkg/gormx"
 	reflect "reflect"
 
@@ -95,6 +96,22 @@ func (mr *MockGenderRepoMockRecorder) GetByIDs(arg0, arg1 interface{}, arg2 ...i
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByIDs", reflect.TypeOf((*MockGenderRepo)(nil).GetByIDs), varargs...)
+}
+
+// GetList mocks base method.
+func (m *MockGenderRepo) GetList(arg0 context.Context, arg1 *option.GenderListOption) ([]*model.Gender, int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetList", arg0, arg1)
+	ret0, _ := ret[0].([]*model.Gender)
+	ret1, _ := ret[1].(int64)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetList indicates an expected call of GetList.
+func (mr *MockGenderRepoMockRecorder) GetList(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetList", reflect.TypeOf((*MockGenderRepo)(nil).GetList), arg0, arg1)
 }
 
 // GetSemanticByID mocks base method.
