@@ -4,6 +4,7 @@ desc: 项目描述
 go_module: 项目的go module名
 go_version: 项目的go版本
 server_type: 项目的服务类型 (HTTP|GRPC|ALL)
+no_auth: 是否不需要鉴权 (true|false)
 -->
 <!ELEMENT project (usecases*, database*)>
 <!ATTLIST project
@@ -12,6 +13,7 @@ server_type: 项目的服务类型 (HTTP|GRPC|ALL)
     go_module CDATA #REQUIRED
     go_version CDATA #REQUIRED
     server_type (HTTP|GRPC|ALL) #REQUIRED
+    no_auth (true|false) "false"
 >
 <!-- usecases: 复杂用例 -->
 <!ELEMENT usecases (usecase*)>

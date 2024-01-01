@@ -1,0 +1,93 @@
+syntax = "proto3";
+package metaegglayout;
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
+import "meta_egg_layout_common.proto";
+option go_package = "./meta_egg_layout";
+
+// UserDetail 用户详情
+message UserDetail {
+    uint64 id = 1; // 
+    optional string name = 2; // 用户名
+    uint64 gender = 3; // 性别
+    uint32 age = 4; // 年龄
+    bool is_on_job = 5; // 是否在职
+    optional string birthday = 6; // 生日
+    optional uint64 created_by = 7; // 创建者
+    string created_at = 8; // 创建时间
+    optional uint64 updated_by = 9; // 更新者
+    string updated_at = 10; // 更新时间
+}
+
+// CreateUserRequest 创建用户请求
+message CreateUserRequest {
+    // 用户名
+    optional string name = 1 [(validate.rules).string = {max_len: 64}];
+    // 性别
+    uint64 gender = 2 [(validate.rules).uint64 = {gte: 1}];
+    // 年龄
+    uint32 age = 3;
+    // 是否在职
+    bool is_on_job = 4;
+    // 生日 格式: 2006-01-02
+    optional string birthday = 5 [(validate.rules).string = {
+        pattern: "^\\d{4}-\\d{2}-\\d{2}$",
+    }];
+}
+
+// GetUserDetailRequest 获取用户详情请求
+message GetUserDetailRequest {
+    // 用户ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+// UserListInfo 用户列表信息
+message UserListInfo {
+    uint64 id = 1; // 
+    optional string name = 2; // 用户名
+    uint64 gender = 3; // 性别
+}
+
+// GetUserListRequest 获取用户列表请求
+message GetUserListRequest {
+    // 分页请求（可选, 不传则不分页）
+    optional Pagination pagination = 1;
+    // 筛选项: 性别 (可选)
+    optional uint64 gender = 2 [(validate.rules).uint64 = {gte: 1}];
+    // 筛选项: 是否在职 (可选)
+    optional bool is_on_job = 3;
+    // 排序字段, 可选: id
+    optional string order_by = 4 [(validate.rules).string = {in: ["id"]}];
+    // 排序方式, 默认 desc, 可选: asc, desc
+    optional string order_type = 5 [(validate.rules).string = {in: ["asc", "desc"]}];
+}
+
+// GetUserListResponse 获取用户列表响应
+message GetUserListResponse {
+    repeated UserListInfo list = 1; // 列表数据
+    int64 total = 2; // 结果集总数
+}
+
+// UpdateUserRequest 更新用户请求
+message UpdateUserRequest {
+    // 用户ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+    // 更新项: 用户名 (可选)
+    optional string name = 2 [(validate.rules).string = {max_len: 64}];
+    // 更新项: 性别 (可选)
+    optional uint64 gender = 3 [(validate.rules).uint64 = {gte: 1}];
+    // 更新项: 年龄 (可选)
+    optional uint32 age = 4;
+    // 更新项: 是否在职 (可选)
+    optional bool is_on_job = 5;
+    // 更新项: 生日 格式: 2006-01-02 (可选)
+    optional string birthday = 6 [(validate.rules).string = {
+        pattern: "^\\d{4}-\\d{2}-\\d{2}$",
+    }];
+}
+
+// DeleteUserRequest 删除用户请求
+message DeleteUserRequest {
+    // 用户ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
