@@ -159,7 +159,7 @@ func (s *UserRepoImpl) Delete(ctx context.Context, opts ...gormx.Option) (rowsAf
 	if me, ok := contexts.GetME(ctx); ok {
 		result = tx.UpdateColumns(map[string]interface{}{
 			model.ColUserDeletedBy: &(me.ID),
-			model.ColUserDeletedAt: time.Now(),
+			model.ColUserDeletedAt: time.Now().Unix(),
 		})
 	} else {
 		result = tx.Delete(&model.User{})
