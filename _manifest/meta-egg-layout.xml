@@ -38,5 +38,59 @@
             <column name="desc" type="_DESC" length="64" required="false" comment="描述" />
             <column name="deleted_at" type="_TIME_DELETE2" comment="删除时间" />
         </table>
+
+        <!-- 关系列表表示例 (RL: 一对多关系表) -->
+        <table name="user_phone" type="RL" comment="用户电话" handler="true">
+            <column name="id" type="_ID" order="true" list="true" />
+            <column name="user_id" type="_FID" required="true" comment="用户ID" filter="true" list="true">
+                <foreign_key table="user" is_main="true" auto_remove="true" />
+            </column>
+            <column name="phone_number" type="VARCHAR" length="20" required="true" comment="电话号码" list="true" alter="true" />
+            <column name="created_by" type="_ME_CREATE" required="false" comment="创建者">
+                <foreign_key table="user" />
+            </column>
+            <column name="created_at" type="_TIME_CREATE" required="true" comment="创建时间" />
+            <column name="deleted_by" type="_ME_DELETE" comment="删除者">
+                <foreign_key table="user" />
+            </column>
+            <column name="deleted_at" type="_TIME_DELETE2" comment="删除时间" />
+
+            <unique>
+                <index_column name="phone_number" />
+                <index_column name="deleted_at" />
+            </unique>
+        </table>
+
+        <!-- 业务规则表示例 (BR: 多对多的二元关系表) -->
+        <table name="user_tag" type="BR" comment="用户标签关系" handler="true">
+            <column name="id" type="_ID" order="true" list="true" />
+            <column name="user_id" type="_FID" required="true" comment="用户ID" filter="true" list="true">
+                <foreign_key table="user" is_main="true" />
+            </column>
+            <column name="tag_id" type="_FID" required="true" comment="标签ID" filter="true" list="true">
+                <foreign_key table="tag" is_main="true" />
+            </column>
+            <column name="created_by" type="_ME_CREATE" required="false" comment="创建者">
+                <foreign_key table="user" />
+            </column>
+            <column name="created_at" type="_TIME_CREATE" required="true" comment="创建时间" />
+            <column name="deleted_by" type="_ME_DELETE" comment="删除者">
+                <foreign_key table="user" />
+            </column>
+            <column name="deleted_at" type="_TIME_DELETE2" comment="删除时间" />
+
+            <unique>
+                <index_column name="user_id" />
+                <index_column name="tag_id" />
+                <index_column name="deleted_at" />
+            </unique>
+        </table>
+
+        <!-- 自定义标签表 -->
+        <table name="tag" type="DATA" comment="标签" handler="true">
+            <column name="id" type="_ID" order="true" list="true" />
+            <column name="name" type="VARCHAR" length="64" required="true" comment="标签名称" list="true" />
+            <column name="deleted_at" type="_TIME_DELETE2" comment="删除时间" />
+        </table>
     </database>
 </project>

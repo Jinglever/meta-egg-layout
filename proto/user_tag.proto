@@ -1,0 +1,44 @@
+syntax = "proto3";
+package metaegglayout;
+import "google/protobuf/empty.proto";
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
+import "meta_egg_layout_common.proto";
+option go_package = "./meta_egg_layout";
+
+
+message GetTagListByUserIDRequest {
+  uint64 user_id = 1; // 用户ID
+  optional Pagination pagination = 2; // 分页请求（可选, 不传则不分页）
+  optional string order_by = 3; // 排序字段
+  optional string order_type = 4; // 排序类型: asc, desc
+}
+
+message GetUserListByTagIDRequest {
+  uint64 tag_id = 1; // 标签ID
+  optional Pagination pagination = 2; // 分页请求（可选, 不传则不分页）
+  optional uint64 gender = 3; // 性别
+  optional bool isOnJob = 4; // 是否在职
+  optional string order_by = 5; // 排序字段
+  optional string order_type = 6; // 排序类型: asc, desc
+}
+
+message BindTagsToUserRequest {
+  uint64 user_id = 1; // 用户ID
+  repeated uint64 tag_ids = 2; // 标签ID列表
+}
+
+message BindUsersToTagRequest {
+  uint64 tag_id = 1; // 标签ID
+  repeated uint64 user_ids = 2; // 用户ID列表
+}
+
+message UnbindTagsFromUserRequest {
+  uint64 user_id = 1; // 用户ID
+  repeated uint64 tag_ids = 2; // 标签ID列表
+}
+
+message UnbindUsersFromTagRequest {
+  uint64 tag_id = 1; // 标签ID
+  repeated uint64 user_ids = 2; // 用户ID列表
+}
+

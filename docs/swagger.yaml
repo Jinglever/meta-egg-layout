@@ -1,4 +1,26 @@
 definitions:
+  internal_handler_http.ReqBindTagsToUser:
+    properties:
+      tag_ids:
+        description: 标签ID列表
+        items:
+          type: integer
+        type: array
+    required:
+    - tag_ids
+    type: object
+  internal_handler_http.ReqBindUsersToTag:
+    properties:
+      user_ids:
+        description: 用户ID列表
+        items:
+          type: integer
+        type: array
+    required:
+    - user_ids
+    type: object
+  internal_handler_http.ReqCreateTag:
+    type: object
   internal_handler_http.ReqCreateUser:
     properties:
       age:
@@ -18,9 +40,45 @@ definitions:
         description: 用户名
         maxLength: 64
         type: string
+      user_phones:
+        description: 用户电话列表
+        items:
+          $ref: '#/definitions/internal_handler_http.ReqCreateUserPhone'
+        type: array
     required:
     - age
     - gender
+    type: object
+  internal_handler_http.ReqCreateUserPhone:
+    properties:
+      phone_number:
+        description: 电话号码
+        maxLength: 20
+        type: string
+    required:
+    - phone_number
+    type: object
+  internal_handler_http.ReqUnbindTagsFromUser:
+    properties:
+      tag_ids:
+        description: 标签ID列表
+        items:
+          type: integer
+        type: array
+    required:
+    - tag_ids
+    type: object
+  internal_handler_http.ReqUnbindUsersFromTag:
+    properties:
+      user_ids:
+        description: 用户ID列表
+        items:
+          type: integer
+        type: array
+    required:
+    - user_ids
+    type: object
+  internal_handler_http.ReqUpdateTag:
     type: object
   internal_handler_http.ReqUpdateUser:
     properties:
@@ -57,6 +115,33 @@ definitions:
       message:
         type: string
     type: object
+  internal_handler_http.TagDetail:
+    properties:
+      id:
+        type: integer
+      name:
+        description: 标签名称
+        type: string
+    type: object
+  internal_handler_http.TagList:
+    properties:
+      list:
+        description: 标签列表
+        items:
+          $ref: '#/definitions/internal_handler_http.TagListInfo'
+        type: array
+      total:
+        description: 总数
+        type: integer
+    type: object
+  internal_handler_http.TagListInfo:
+    properties:
+      id:
+        type: integer
+      name:
+        description: 标签名称
+        type: string
+    type: object
   internal_handler_http.UserDetail:
     properties:
       age:
@@ -88,6 +173,11 @@ definitions:
       updated_by:
         description: 更新者 (nullable)
         type: integer
+      user_phones:
+        description: 用户电话列表
+        items:
+          $ref: '#/definitions/internal_handler_http.UserPhoneDetail'
+        type: array
     type: object
   internal_handler_http.UserList:
     properties:
@@ -110,6 +200,39 @@ definitions:
       name:
         description: 用户名 (nullable)
         type: string
+      user_phones:
+        description: 用户电话列表
+        items:
+          $ref: '#/definitions/internal_handler_http.UserPhoneListInfo'
+        type: array
+    type: object
+  internal_handler_http.UserPhoneDetail:
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      created_by:
+        description: 创建者 (nullable)
+        type: integer
+      id:
+        type: integer
+      phone_number:
+        description: 电话号码
+        type: string
+      user_id:
+        description: 用户ID
+        type: integer
+    type: object
+  internal_handler_http.UserPhoneListInfo:
+    properties:
+      id:
+        type: integer
+      phone_number:
+        description: 电话号码
+        type: string
+      user_id:
+        description: 用户ID
+        type: integer
     type: object
   meta-egg-layout_api_meta_egg_layout.ErrCode:
     enum:
@@ -166,6 +289,321 @@ info:
   title: meta-egg-layout
   version: xxx
 paths:
+  /api/v1/tags:
+    get:
+      consumes:
+      - application/json
+      operationId: GetTagList
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码, 从1开始
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页数量, 要求大于0
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: '排序字段, 可选: id'
+        in: query
+        name: order_by
+        type: string
+      - description: 排序类型,默认desc
+        in: query
+        name: order_type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.TagList'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取标签列表
+      tags:
+      - 标签
+    post:
+      consumes:
+      - application/json
+      operationId: CreateTag
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqCreateTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.TagDetail'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 创建标签
+      tags:
+      - 标签
+  /api/v1/tags/{id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: DeleteTag
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 删除标签
+      tags:
+      - 标签
+    get:
+      consumes:
+      - application/json
+      operationId: GetTagDetail
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.TagDetail'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取标签详情
+      tags:
+      - 标签
+    put:
+      consumes:
+      - application/json
+      operationId: UpdateTag
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 请求体
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqUpdateTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 更新标签
+      tags:
+      - 标签
+  /api/v1/tags/{tag_id}/bind-users:
+    post:
+      consumes:
+      - application/json
+      operationId: BindUsersToTag
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: tag_id
+        required: true
+        type: integer
+      - description: 批量分配请求
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqBindUsersToTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 给指定标签批量分配用户
+      tags:
+      - 用户标签关系
+  /api/v1/tags/{tag_id}/unbind-users:
+    post:
+      consumes:
+      - application/json
+      operationId: UnbindUsersFromTag
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: tag_id
+        required: true
+        type: integer
+      - description: 批量解绑请求
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqUnbindUsersFromTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 从指定标签解除与多个用户的关联
+      tags:
+      - 用户标签关系
+  /api/v1/tags/{tag_id}/users:
+    get:
+      consumes:
+      - application/json
+      operationId: GetUserListByTagID
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: tag_id
+        required: true
+        type: integer
+      - description: 页码, 从1开始
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页数量, 要求大于0
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: 性别
+        in: query
+        name: gender
+        type: integer
+      - description: 是否在职
+        in: query
+        name: is_on_job
+        type: boolean
+      - description: 排序字段,可选:id
+        in: query
+        name: order_by
+        type: string
+      - description: 排序类型,默认desc
+        in: query
+        name: order_type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.UserList'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取与指定标签关联的用户列表
+      tags:
+      - 用户标签关系
   /api/v1/users:
     get:
       consumes:
@@ -354,6 +792,243 @@ paths:
           schema:
             $ref: '#/definitions/internal_handler_http.RspBase'
       summary: 更新用户
+      tags:
+      - 用户
+  /api/v1/users/{user_id}/bind-tags:
+    post:
+      consumes:
+      - application/json
+      operationId: BindTagsToUser
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: 批量分配请求
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqBindTagsToUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 给指定用户批量分配标签
+      tags:
+      - 用户标签关系
+  /api/v1/users/{user_id}/tags:
+    get:
+      consumes:
+      - application/json
+      operationId: GetTagListByUserID
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: 页码, 从1开始
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页数量, 要求大于0
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: 排序字段,可选:id
+        in: query
+        name: order_by
+        type: string
+      - description: 排序类型,默认desc
+        in: query
+        name: order_type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.TagList'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取与指定用户关联的标签列表
+      tags:
+      - 用户标签关系
+  /api/v1/users/{user_id}/unbind-tags:
+    post:
+      consumes:
+      - application/json
+      operationId: UnbindTagsFromUser
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: 批量解绑请求
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqUnbindTagsFromUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 从指定用户解除与多个标签的关联
+      tags:
+      - 用户标签关系
+  /api/v1/users/{user_id}/user_phones:
+    get:
+      consumes:
+      - application/json
+      operationId: GetAllUserPhone
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/internal_handler_http.UserPhoneDetail'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 获取所有用户电话
+      tags:
+      - 用户
+    post:
+      consumes:
+      - application/json
+      operationId: AddUserPhone
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: 用户电话
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handler_http.ReqCreateUserPhone'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_handler_http.RspData'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_handler_http.UserPhoneDetail'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 添加用户电话
+      tags:
+      - 用户
+  /api/v1/users/{user_id}/user_phones/{userPhone_id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: RemoveUserPhone
+      parameters:
+      - description: Bearer <jwt-token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: 用户电话ID
+        in: path
+        name: userPhone_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handler_http.RspBase'
+      summary: 删除用户电话
       tags:
       - 用户
 swagger: "2.0"

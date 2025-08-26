@@ -18,6 +18,8 @@ import (
 func NewBizService(rsrc *resource.Resource, ctrl *gomock.Controller) *biz.BizService {
 	mockUserRepo := mock.NewMockUserRepo(ctrl)
 	mockGenderRepo := mock.NewMockGenderRepo(ctrl)
-	bizService := biz.NewBizService(rsrc, mockUserRepo, mockGenderRepo)
+	mockUserTagRepo := mock.NewMockUserTagRepo(ctrl)
+	mockTagRepo := mock.NewMockTagRepo(ctrl)
+	bizService := biz.NewBizService(rsrc, mockUserRepo, mockGenderRepo, mockUserTagRepo, mockTagRepo)
 	return bizService
 }

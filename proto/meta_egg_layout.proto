@@ -2,6 +2,8 @@ syntax = "proto3";
 package metaegglayout;
 import "google/protobuf/empty.proto";
 import "user.proto";
+import "user_tag.proto";
+import "tag.proto";
 option go_package = "./meta_egg_layout";
 
 
@@ -17,6 +19,34 @@ service MetaEggLayout {
     rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty) {}
     // 删除用户
     rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {}
+    // 添加用户电话
+    rpc AddUserPhone (AddUserPhoneRequest) returns (UserPhoneDetail) {}
+    // 删除用户电话
+    rpc RemoveUserPhone (RemoveUserPhoneRequest) returns (google.protobuf.Empty) {}
+    // 获取所有用户电话
+    rpc GetAllUserPhone (GetAllUserPhoneRequest) returns (GetAllUserPhoneResponse) {}
+    // 获取与指定用户关联的标签列表
+    rpc GetTagListByUserID (GetTagListByUserIDRequest) returns (GetTagListResponse) {}
+    // 获取与指定标签关联的用户列表
+    rpc GetUserListByTagID (GetUserListByTagIDRequest) returns (GetUserListResponse) {}
+    // 给指定用户批量关联标签
+    rpc BindTagsToUser (BindTagsToUserRequest) returns (google.protobuf.Empty) {}
+    // 给指定标签批量关联用户
+    rpc BindUsersToTag (BindUsersToTagRequest) returns (google.protobuf.Empty) {}
+    // 从指定用户解除与多个标签的关联
+    rpc UnbindTagsFromUser (UnbindTagsFromUserRequest) returns (google.protobuf.Empty) {}
+    // 从指定标签解除与多个用户的关联
+    rpc UnbindUsersFromTag (UnbindUsersFromTagRequest) returns (google.protobuf.Empty) {}
+    // 创建标签
+    rpc CreateTag (CreateTagRequest) returns (TagDetail) {}
+    // 获取标签详情
+    rpc GetTagDetail (GetTagDetailRequest) returns (TagDetail) {}
+    // 获取标签列表
+    rpc GetTagList (GetTagListRequest) returns (GetTagListResponse) {}
+    // 更新标签
+    rpc UpdateTag (UpdateTagRequest) returns (google.protobuf.Empty) {}
+    // 删除标签
+    rpc DeleteTag (DeleteTagRequest) returns (google.protobuf.Empty) {}
 
     // TODO: add your service here
 }
