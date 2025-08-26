@@ -1,0 +1,57 @@
+syntax = "proto3";
+package metaegglayout;
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
+import "meta_egg_layout_common.proto";
+option go_package = "./meta_egg_layout";
+
+// TagDetail 标签详情
+message TagDetail {
+    uint64 id = 1; // 
+    string name = 2; // 标签名称
+}
+
+// CreateTagRequest 创建标签请求
+message CreateTagRequest {
+}
+
+// GetTagDetailRequest 获取标签详情请求
+message GetTagDetailRequest {
+    // 标签ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+// TagListInfo 标签列表信息
+message TagListInfo {
+    uint64 id = 1; // 
+    string name = 2; // 标签名称
+}
+
+// GetTagListRequest 获取标签列表请求
+message GetTagListRequest {
+    // 分页请求（可选, 不传则不分页）
+    optional Pagination pagination = 1;
+    // 排序字段, 可选: id
+    optional string order_by = 2 [(validate.rules).string = {in: ["id"]}];
+    // 排序方式, 默认 desc, 可选: asc, desc
+    optional string order_type = 3 [(validate.rules).string = {in: ["asc", "desc"]}];
+}
+
+// GetTagListResponse 获取标签列表响应
+message GetTagListResponse {
+    repeated TagListInfo list = 1; // 列表数据
+    int64 total = 2; // 结果集总数
+}
+
+// UpdateTagRequest 更新标签请求
+message UpdateTagRequest {
+    // 标签ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+// DeleteTagRequest 删除标签请求
+message DeleteTagRequest {
+    // 标签ID
+    uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+

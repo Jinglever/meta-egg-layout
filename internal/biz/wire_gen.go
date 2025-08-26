@@ -16,6 +16,8 @@ import (
 func WireBizService(rsrc *resource.Resource) *BizService {
 	userRepo := repo.NewUserRepo(rsrc)
 	genderRepo := repo.NewGenderRepo(rsrc)
-	bizService := NewBizService(rsrc, userRepo, genderRepo)
+	userTagRepo := repo.NewUserTagRepo(rsrc)
+	tagRepo := repo.NewTagRepo(rsrc)
+	bizService := NewBizService(rsrc, userRepo, genderRepo, userTagRepo, tagRepo)
 	return bizService
 }

@@ -17,7 +17,9 @@ import (
 func WireHandler(rsrc *resource.Resource) *Handler {
 	userRepo := repo.NewUserRepo(rsrc)
 	genderRepo := repo.NewGenderRepo(rsrc)
-	bizService := biz.NewBizService(rsrc, userRepo, genderRepo)
+	userTagRepo := repo.NewUserTagRepo(rsrc)
+	tagRepo := repo.NewTagRepo(rsrc)
+	bizService := biz.NewBizService(rsrc, userRepo, genderRepo, userTagRepo, tagRepo)
 	handler := NewHandler(rsrc, bizService)
 	return handler
 }

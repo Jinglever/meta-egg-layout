@@ -38,6 +38,20 @@ func (m *MockUserRepo) EXPECT() *MockUserRepoMockRecorder {
 	return m.recorder
 }
 
+// AddUserPhone mocks base method.
+func (m *MockUserRepo) AddUserPhone(arg0 context.Context, arg1 uint64, arg2 *model.UserPhone) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddUserPhone", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AddUserPhone indicates an expected call of AddUserPhone.
+func (mr *MockUserRepoMockRecorder) AddUserPhone(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUserPhone", reflect.TypeOf((*MockUserRepo)(nil).AddUserPhone), arg0, arg1, arg2)
+}
+
 // Count mocks base method.
 func (m *MockUserRepo) Count(arg0 context.Context, arg1 ...gormx.Option) (int64, error) {
 	m.ctrl.T.Helper()
@@ -136,6 +150,21 @@ func (mr *MockUserRepoMockRecorder) DeleteByIDs(arg0, arg1 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByIDs", reflect.TypeOf((*MockUserRepo)(nil).DeleteByIDs), arg0, arg1)
 }
 
+// GetAllUserPhone mocks base method.
+func (m *MockUserRepo) GetAllUserPhone(arg0 context.Context, arg1 uint64) ([]*model.UserPhone, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAllUserPhone", arg0, arg1)
+	ret0, _ := ret[0].([]*model.UserPhone)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAllUserPhone indicates an expected call of GetAllUserPhone.
+func (mr *MockUserRepoMockRecorder) GetAllUserPhone(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllUserPhone", reflect.TypeOf((*MockUserRepo)(nil).GetAllUserPhone), arg0, arg1)
+}
+
 // GetByID mocks base method.
 func (m *MockUserRepo) GetByID(arg0 context.Context, arg1 uint64, arg2 ...gormx.Option) (*model.User, error) {
 	m.ctrl.T.Helper()
@@ -224,6 +253,34 @@ func (mr *MockUserRepoMockRecorder) Gets(arg0 interface{}, arg1 ...interface{}) 
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0}, arg1...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Gets", reflect.TypeOf((*MockUserRepo)(nil).Gets), varargs...)
+}
+
+// RemoveAllUserPhone mocks base method.
+func (m *MockUserRepo) RemoveAllUserPhone(arg0 context.Context, arg1 uint64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RemoveAllUserPhone", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// RemoveAllUserPhone indicates an expected call of RemoveAllUserPhone.
+func (mr *MockUserRepoMockRecorder) RemoveAllUserPhone(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveAllUserPhone", reflect.TypeOf((*MockUserRepo)(nil).RemoveAllUserPhone), arg0, arg1)
+}
+
+// RemoveUserPhone mocks base method.
+func (m *MockUserRepo) RemoveUserPhone(arg0 context.Context, arg1, arg2 uint64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RemoveUserPhone", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// RemoveUserPhone indicates an expected call of RemoveUserPhone.
+func (mr *MockUserRepoMockRecorder) RemoveUserPhone(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveUserPhone", reflect.TypeOf((*MockUserRepo)(nil).RemoveUserPhone), arg0, arg1, arg2)
 }
 
 // Update mocks base method.

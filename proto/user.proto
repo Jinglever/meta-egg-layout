@@ -16,6 +16,7 @@ message UserDetail {
     string created_at = 8; // 创建时间
     optional uint64 updated_by = 9; // 更新者
     string updated_at = 10; // 更新时间
+    repeated UserPhoneDetail user_phones = 11; // 用户电话列表
 }
 
 // CreateUserRequest 创建用户请求
@@ -32,6 +33,8 @@ message CreateUserRequest {
     optional string birthday = 5 [(validate.rules).string = {
         pattern: "^\\d{4}-\\d{2}-\\d{2}$",
     }];
+    // 用户电话数据列表（可选）
+    repeated UserPhoneCreateData user_phones = 12;
 }
 
 // GetUserDetailRequest 获取用户详情请求
@@ -45,6 +48,7 @@ message UserListInfo {
     uint64 id = 1; // 
     optional string name = 2; // 用户名
     uint64 gender = 3; // 性别
+    repeated UserPhoneListInfo user_phones = 11; // 用户电话列表
 }
 
 // GetUserListRequest 获取用户列表请求
@@ -89,5 +93,55 @@ message UpdateUserRequest {
 message DeleteUserRequest {
     // 用户ID
     uint64 id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+
+// UserPhoneDetail 用户电话详情
+message UserPhoneDetail {
+    uint64 id = 1; // 
+    uint64 user_id = 2; // 用户ID
+    string phone_number = 3; // 电话号码
+    optional uint64 created_by = 4; // 创建者
+    string created_at = 5; // 创建时间
+}
+
+// UserPhoneListInfo 用户电话列表信息
+message UserPhoneListInfo {
+    uint64 id = 1; // 
+    uint64 user_id = 2; // 用户ID
+    string phone_number = 3; // 电话号码
+}
+
+// UserPhoneCreateData 用户电话创建数据
+message UserPhoneCreateData {
+    // 电话号码
+    string phone_number = 1 [(validate.rules).string = {max_len: 20}];
+}
+
+// AddUserPhoneRequest 添加用户电话请求
+message AddUserPhoneRequest {
+    // 用户ID
+    uint64 user_id = 1 [(validate.rules).uint64 = {gte: 1}];
+    // 电话号码
+    string phone_number = 2 [(validate.rules).string = {max_len: 20}];
+}
+
+// RemoveUserPhoneRequest 删除用户电话请求
+message RemoveUserPhoneRequest {
+    // 用户ID
+    uint64 user_id = 1 [(validate.rules).uint64 = {gte: 1}];
+    // 用户电话ID
+    uint64 user_phone_id = 2 [(validate.rules).uint64 = {gte: 1}];
+}
+
+// GetAllUserPhoneRequest 获取所有用户电话请求
+message GetAllUserPhoneRequest {
+    // 用户ID
+    uint64 user_id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+// GetAllUserPhoneResponse 获取所有用户电话响应
+message GetAllUserPhoneResponse {
+    repeated UserPhoneDetail list = 1; // 用户电话列表
 }
 

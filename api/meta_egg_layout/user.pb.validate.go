@@ -69,6 +69,40 @@ func (m *UserDetail) validate(all bool) error {
 
 	// no validation rules for UpdatedAt
 
+	for idx, item := range m.GetUserPhones() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserDetailValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserDetailValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserDetailValidationError{
+					field:  fmt.Sprintf("UserPhones[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if m.Name != nil {
 		// no validation rules for Name
 	}
@@ -98,7 +132,7 @@ type UserDetailMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UserDetailMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -199,6 +233,40 @@ func (m *CreateUserRequest) validate(all bool) error {
 
 	// no validation rules for IsOnJob
 
+	for idx, item := range m.GetUserPhones() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateUserRequestValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateUserRequestValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateUserRequestValidationError{
+					field:  fmt.Sprintf("UserPhones[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if m.Name != nil {
 
 		if utf8.RuneCountInString(m.GetName()) > 64 {
@@ -243,7 +311,7 @@ type CreateUserRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CreateUserRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -358,7 +426,7 @@ type GetUserDetailRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetUserDetailRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -450,6 +518,40 @@ func (m *UserListInfo) validate(all bool) error {
 
 	// no validation rules for Gender
 
+	for idx, item := range m.GetUserPhones() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserListInfoValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserListInfoValidationError{
+						field:  fmt.Sprintf("UserPhones[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserListInfoValidationError{
+					field:  fmt.Sprintf("UserPhones[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if m.Name != nil {
 		// no validation rules for Name
 	}
@@ -467,7 +569,7 @@ type UserListInfoMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UserListInfoMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -649,7 +751,7 @@ type GetUserListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetUserListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -796,7 +898,7 @@ type GetUserListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetUserListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -962,7 +1064,7 @@ type UpdateUserRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdateUserRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1077,7 +1179,7 @@ type DeleteUserRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeleteUserRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1142,3 +1244,833 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteUserRequestValidationError{}
+
+// Validate checks the field values on UserPhoneDetail with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UserPhoneDetail) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPhoneDetail with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPhoneDetailMultiError, or nil if none found.
+func (m *UserPhoneDetail) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPhoneDetail) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for UserId
+
+	// no validation rules for PhoneNumber
+
+	// no validation rules for CreatedAt
+
+	if m.CreatedBy != nil {
+		// no validation rules for CreatedBy
+	}
+
+	if len(errors) > 0 {
+		return UserPhoneDetailMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPhoneDetailMultiError is an error wrapping multiple validation errors
+// returned by UserPhoneDetail.ValidateAll() if the designated constraints
+// aren't met.
+type UserPhoneDetailMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPhoneDetailMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPhoneDetailMultiError) AllErrors() []error { return m }
+
+// UserPhoneDetailValidationError is the validation error returned by
+// UserPhoneDetail.Validate if the designated constraints aren't met.
+type UserPhoneDetailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPhoneDetailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPhoneDetailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPhoneDetailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPhoneDetailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPhoneDetailValidationError) ErrorName() string { return "UserPhoneDetailValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserPhoneDetailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPhoneDetail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPhoneDetailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPhoneDetailValidationError{}
+
+// Validate checks the field values on UserPhoneListInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UserPhoneListInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPhoneListInfo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPhoneListInfoMultiError, or nil if none found.
+func (m *UserPhoneListInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPhoneListInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for UserId
+
+	// no validation rules for PhoneNumber
+
+	if len(errors) > 0 {
+		return UserPhoneListInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPhoneListInfoMultiError is an error wrapping multiple validation errors
+// returned by UserPhoneListInfo.ValidateAll() if the designated constraints
+// aren't met.
+type UserPhoneListInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPhoneListInfoMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPhoneListInfoMultiError) AllErrors() []error { return m }
+
+// UserPhoneListInfoValidationError is the validation error returned by
+// UserPhoneListInfo.Validate if the designated constraints aren't met.
+type UserPhoneListInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPhoneListInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPhoneListInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPhoneListInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPhoneListInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPhoneListInfoValidationError) ErrorName() string {
+	return "UserPhoneListInfoValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPhoneListInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPhoneListInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPhoneListInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPhoneListInfoValidationError{}
+
+// Validate checks the field values on UserPhoneCreateData with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UserPhoneCreateData) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserPhoneCreateData with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UserPhoneCreateDataMultiError, or nil if none found.
+func (m *UserPhoneCreateData) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserPhoneCreateData) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPhoneNumber()) > 20 {
+		err := UserPhoneCreateDataValidationError{
+			field:  "PhoneNumber",
+			reason: "value length must be at most 20 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UserPhoneCreateDataMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserPhoneCreateDataMultiError is an error wrapping multiple validation
+// errors returned by UserPhoneCreateData.ValidateAll() if the designated
+// constraints aren't met.
+type UserPhoneCreateDataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserPhoneCreateDataMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserPhoneCreateDataMultiError) AllErrors() []error { return m }
+
+// UserPhoneCreateDataValidationError is the validation error returned by
+// UserPhoneCreateData.Validate if the designated constraints aren't met.
+type UserPhoneCreateDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserPhoneCreateDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserPhoneCreateDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserPhoneCreateDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserPhoneCreateDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserPhoneCreateDataValidationError) ErrorName() string {
+	return "UserPhoneCreateDataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UserPhoneCreateDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserPhoneCreateData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserPhoneCreateDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserPhoneCreateDataValidationError{}
+
+// Validate checks the field values on AddUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddUserPhoneRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddUserPhoneRequestMultiError, or nil if none found.
+func (m *AddUserPhoneRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddUserPhoneRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() < 1 {
+		err := AddUserPhoneRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetPhoneNumber()) > 20 {
+		err := AddUserPhoneRequestValidationError{
+			field:  "PhoneNumber",
+			reason: "value length must be at most 20 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return AddUserPhoneRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddUserPhoneRequestMultiError is an error wrapping multiple validation
+// errors returned by AddUserPhoneRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AddUserPhoneRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddUserPhoneRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddUserPhoneRequestMultiError) AllErrors() []error { return m }
+
+// AddUserPhoneRequestValidationError is the validation error returned by
+// AddUserPhoneRequest.Validate if the designated constraints aren't met.
+type AddUserPhoneRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddUserPhoneRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddUserPhoneRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddUserPhoneRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddUserPhoneRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddUserPhoneRequestValidationError) ErrorName() string {
+	return "AddUserPhoneRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddUserPhoneRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddUserPhoneRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddUserPhoneRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddUserPhoneRequestValidationError{}
+
+// Validate checks the field values on RemoveUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemoveUserPhoneRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveUserPhoneRequestMultiError, or nil if none found.
+func (m *RemoveUserPhoneRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveUserPhoneRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() < 1 {
+		err := RemoveUserPhoneRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetUserPhoneId() < 1 {
+		err := RemoveUserPhoneRequestValidationError{
+			field:  "UserPhoneId",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RemoveUserPhoneRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RemoveUserPhoneRequestMultiError is an error wrapping multiple validation
+// errors returned by RemoveUserPhoneRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveUserPhoneRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveUserPhoneRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveUserPhoneRequestMultiError) AllErrors() []error { return m }
+
+// RemoveUserPhoneRequestValidationError is the validation error returned by
+// RemoveUserPhoneRequest.Validate if the designated constraints aren't met.
+type RemoveUserPhoneRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoveUserPhoneRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoveUserPhoneRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoveUserPhoneRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoveUserPhoneRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoveUserPhoneRequestValidationError) ErrorName() string {
+	return "RemoveUserPhoneRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RemoveUserPhoneRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoveUserPhoneRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoveUserPhoneRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoveUserPhoneRequestValidationError{}
+
+// Validate checks the field values on GetAllUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetAllUserPhoneRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetAllUserPhoneRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetAllUserPhoneRequestMultiError, or nil if none found.
+func (m *GetAllUserPhoneRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetAllUserPhoneRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() < 1 {
+		err := GetAllUserPhoneRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetAllUserPhoneRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetAllUserPhoneRequestMultiError is an error wrapping multiple validation
+// errors returned by GetAllUserPhoneRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetAllUserPhoneRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetAllUserPhoneRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetAllUserPhoneRequestMultiError) AllErrors() []error { return m }
+
+// GetAllUserPhoneRequestValidationError is the validation error returned by
+// GetAllUserPhoneRequest.Validate if the designated constraints aren't met.
+type GetAllUserPhoneRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAllUserPhoneRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAllUserPhoneRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAllUserPhoneRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAllUserPhoneRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAllUserPhoneRequestValidationError) ErrorName() string {
+	return "GetAllUserPhoneRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAllUserPhoneRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAllUserPhoneRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAllUserPhoneRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAllUserPhoneRequestValidationError{}
+
+// Validate checks the field values on GetAllUserPhoneResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetAllUserPhoneResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetAllUserPhoneResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetAllUserPhoneResponseMultiError, or nil if none found.
+func (m *GetAllUserPhoneResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetAllUserPhoneResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetAllUserPhoneResponseValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetAllUserPhoneResponseValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetAllUserPhoneResponseValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetAllUserPhoneResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetAllUserPhoneResponseMultiError is an error wrapping multiple validation
+// errors returned by GetAllUserPhoneResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetAllUserPhoneResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetAllUserPhoneResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetAllUserPhoneResponseMultiError) AllErrors() []error { return m }
+
+// GetAllUserPhoneResponseValidationError is the validation error returned by
+// GetAllUserPhoneResponse.Validate if the designated constraints aren't met.
+type GetAllUserPhoneResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAllUserPhoneResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAllUserPhoneResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAllUserPhoneResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAllUserPhoneResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAllUserPhoneResponseValidationError) ErrorName() string {
+	return "GetAllUserPhoneResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAllUserPhoneResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAllUserPhoneResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAllUserPhoneResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAllUserPhoneResponseValidationError{}
