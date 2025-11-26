@@ -46,7 +46,7 @@ func errorInterceptor(cfg *Config) grpc.UnaryServerInterceptor {
 			} else if !cfg.ReturnErrorDetail {
 				cErr.Detail = ""
 			}
-			err = status.Errorf(codes.Code(cErr.Code), cErr.Error())
+			err = status.Errorf(codes.Code(cErr.Code), "%s", cErr.Error())
 		}
 		return resp, err
 	}
